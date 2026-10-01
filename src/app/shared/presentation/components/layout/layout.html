@@ -1,0 +1,86 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav
+    class="sidenav"
+    mode="side"
+    [opened]="true"
+    [fixedInViewport]="true">
+
+    <div class="sidebar-container">
+
+      <div class="brand-container">
+        <img
+          src="/images/ecotrack-logo.png"
+          alt="EcoTrack"
+          class="brand-logo"
+        />
+      </div>
+
+      <mat-nav-list class="navigation">
+
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>dashboard</mat-icon>
+          <span matListItemTitle>{{ 'navigation.dashboard' | translate }}</span>
+        </a>
+
+        <a mat-list-item routerLink="/organization" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>business</mat-icon>
+          <span matListItemTitle>{{ 'navigation.organization' | translate }}</span>
+        </a>
+
+        <a mat-list-item routerLink="/emissions" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>cloud</mat-icon>
+          <span matListItemTitle>{{ 'navigation.emissions' | translate }}</span>
+        </a>
+
+        <a mat-list-item routerLink="/carbon-footprint" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>eco</mat-icon>
+          <span matListItemTitle>{{ 'navigation.carbonFootprint' | translate }}</span>
+        </a>
+
+        <a mat-list-item routerLink="/goals" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>track_changes</mat-icon>
+          <span matListItemTitle>{{ 'navigation.goals' | translate }}</span>
+        </a>
+
+        <a mat-list-item routerLink="/reports" routerLinkActive="active-link">
+          <mat-icon matListItemIcon>description</mat-icon>
+          <span matListItemTitle>{{ 'navigation.reports' | translate }}</span>
+        </a>
+
+      </mat-nav-list>
+
+      <div class="sidebar-bottom">
+        <button mat-button class="logout-button" type="button">
+          <mat-icon>logout</mat-icon>
+          <span>{{ 'navigation.logout' | translate }}</span>
+        </button>
+      </div>
+
+    </div>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+
+    <mat-toolbar class="topbar">
+
+      <span class="topbar-title">
+        {{ 'app.title' | translate }}
+      </span>
+
+      <span class="spacer"></span>
+
+      <app-language-switcher />
+
+    </mat-toolbar>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+
+    <app-footer />
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

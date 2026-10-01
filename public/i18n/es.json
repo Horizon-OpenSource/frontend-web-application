@@ -1,0 +1,17 @@
+{
+  "app": {
+    "title": "EcoTrack"
+  },
+  "navigation": {
+    "dashboard": "Panel principal",
+    "organization": "Organización",
+    "emissions": "Emisiones",
+    "carbonFootprint": "Huella de carbono",
+    "goals": "Metas",
+    "reports": "Reportes",
+    "logout": "Salir"
+  },
+  "footer": {
+    "copyright": "2026 Horizon. Todos los derechos reservados."
+  }
+}

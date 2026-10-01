@@ -6,12 +6,19 @@
     "analytics": "c07cf015-f8d9-4231-b6d8-1ebffce75ff3"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "skipTests": true,
+      "style": "css"
+    }
+  },
   "projects": {
     "ecotrack": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "skipTests": true,
+          "style": "css"
         }
       },
       "root": "",

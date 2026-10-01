@@ -1,0 +1,16 @@
+.footer-content {
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 24px;
+
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8ea;
+
+  color: #90a4ae;
+
+  font-size: 12px;
+}

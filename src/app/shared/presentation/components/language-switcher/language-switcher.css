@@ -1,0 +1,14 @@
+mat-button-toggle-group {
+  border: 1px solid #e2e8ea;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+mat-button-toggle {
+  color: #455a64;
+}
+
+::ng-deep .mat-button-toggle-checked {
+  background-color: #c8e6c9 !important;
+  color: #2e7d32 !important;
+}

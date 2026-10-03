@@ -1,7 +1,5 @@
 {
-  "app": {
-    "title": "EcoTrack"
-  },
+  "app": { "title": "EcoTrack" },
   "navigation": {
     "dashboard": "Panel principal",
     "organization": "Organización",
@@ -11,7 +9,36 @@
     "reports": "Reportes",
     "logout": "Salir"
   },
-  "footer": {
-    "copyright": "2026 Horizon. Todos los derechos reservados."
+  "footer": { "copyright": "2026 Horizon. Todos los derechos reservados." },
+  "emissions": {
+    "eyebrow": "Gestión de emisiones",
+    "title": "Registros de emisiones",
+    "subtitle": "Registra fuentes y datos de actividad para el inventario de carbono de tu organización.",
+    "recordsTitle": "Datos de actividad registrados",
+    "results": "{{count}} registros encontrados",
+    "summary": { "total": "Total de registros" },
+    "scopes": { "SCOPE_1": "Alcance 1", "SCOPE_2": "Alcance 2", "SCOPE_3": "Alcance 3" },
+    "origins": { "MANUAL": "Manual", "CSV": "Importación CSV", "API": "API" },
+    "fields": {
+      "sourceName": "Fuente de emisión",
+      "sourceType": "Tipo de fuente",
+      "facility": "Sede",
+      "scope": "Alcance",
+      "quantity": "Cantidad",
+      "unit": "Unidad",
+      "activityData": "Dato de actividad",
+      "period": "Periodo",
+      "origin": "Origen",
+      "recordedAt": "Fecha de registro",
+      "actions": "Acciones"
+    },
+    "filters": { "search": "Buscar registros", "scope": "Alcance", "period": "Periodo", "source": "Fuente", "all": "Todos" },
+    "actions": { "add": "Agregar emisión", "save": "Guardar", "cancel": "Cancelar", "close": "Cerrar", "view": "Ver detalle", "edit": "Editar", "delete": "Eliminar", "clearFilters": "Limpiar filtros", "resetDemo": "Restaurar datos demo" },
+    "form": { "createTitle": "Registrar fuente y dato de actividad", "editTitle": "Editar registro de emisión" },
+    "detail": { "title": "Detalle del registro de emisión" },
+    "delete": { "title": "Eliminar registro de emisión", "message": "¿Deseas eliminar {{name}}?", "warning": "El registro dejará de formar parte de los registros ambientales activos." },
+    "empty": { "title": "No se encontraron emisiones", "message": "Cambia o limpia los filtros para ver más resultados." },
+    "validation": { "required": "Este campo es obligatorio.", "positive": "Ingresa un valor mayor que cero." },
+    "messages": { "created": "Registro de emisión creado.", "updated": "Registro de emisión actualizado.", "deleted": "Registro de emisión eliminado.", "reset": "Datos de demostración restaurados." }
   }
 }

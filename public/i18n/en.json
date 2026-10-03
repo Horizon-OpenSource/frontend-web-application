@@ -1,7 +1,5 @@
 {
-  "app": {
-    "title": "EcoTrack"
-  },
+  "app": { "title": "EcoTrack" },
   "navigation": {
     "dashboard": "Dashboard",
     "organization": "Organization",
@@ -11,7 +9,36 @@
     "reports": "Reports",
     "logout": "Log out"
   },
-  "footer": {
-    "copyright": "2026 Horizon. All rights reserved."
+  "footer": { "copyright": "2026 Horizon. All rights reserved." },
+  "emissions": {
+    "eyebrow": "Emissions management",
+    "title": "Emission records",
+    "subtitle": "Register sources and activity data for your organization's carbon inventory.",
+    "recordsTitle": "Registered activity data",
+    "results": "{{count}} records found",
+    "summary": { "total": "Total records" },
+    "scopes": { "SCOPE_1": "Scope 1", "SCOPE_2": "Scope 2", "SCOPE_3": "Scope 3" },
+    "origins": { "MANUAL": "Manual", "CSV": "CSV import", "API": "API" },
+    "fields": {
+      "sourceName": "Emission source",
+      "sourceType": "Source type",
+      "facility": "Facility",
+      "scope": "Scope",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "activityData": "Activity data",
+      "period": "Period",
+      "origin": "Origin",
+      "recordedAt": "Recorded at",
+      "actions": "Actions"
+    },
+    "filters": { "search": "Search records", "scope": "Scope", "period": "Period", "source": "Source", "all": "All" },
+    "actions": { "add": "Add emission", "save": "Save", "cancel": "Cancel", "close": "Close", "view": "View details", "edit": "Edit", "delete": "Delete", "clearFilters": "Clear filters", "resetDemo": "Reset demo data" },
+    "form": { "createTitle": "Register emission source and activity data", "editTitle": "Edit emission record" },
+    "detail": { "title": "Emission record details" },
+    "delete": { "title": "Delete emission record", "message": "Are you sure you want to delete {{name}}?", "warning": "This record will no longer be included in the active environmental records." },
+    "empty": { "title": "No emission records found", "message": "Change or clear the filters to see more results." },
+    "validation": { "required": "This field is required.", "positive": "Enter a value greater than zero." },
+    "messages": { "created": "Emission record created.", "updated": "Emission record updated.", "deleted": "Emission record deleted.", "reset": "Demo data restored." }
   }
 }

@@ -18,6 +18,9 @@ export function comparePeriods(
   base: EmissionSummary,
   target: EmissionSummary
 ): PeriodComparison | null {
+  if (base.missingScopes.length || target.missingScopes.length) {
+    return null;
+  }
   const baseTotal = base.totalTonnesCo2e;
   const targetTotal = target.totalTonnesCo2e;
   if (baseTotal === null || targetTotal === null || baseTotal === 0) {

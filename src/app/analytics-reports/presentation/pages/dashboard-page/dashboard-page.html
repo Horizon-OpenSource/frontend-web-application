@@ -1,0 +1,70 @@
+<section class="page-shell" aria-labelledby="dashboard-title">
+  <header class="page-header">
+    <div>
+      <h1 id="dashboard-title">{{ 'analytics.dashboard.title' | translate }}</h1>
+      <p class="subtitle">
+        {{ 'analytics.dashboard.subtitle' | translate: { organization: store.organizationName } }}
+      </p>
+    </div>
+    <mat-form-field appearance="outline" class="period-field" subscriptSizing="dynamic">
+      <mat-label>{{ 'analytics.filters.period' | translate }}</mat-label>
+      <mat-select [value]="store.selectedPeriodId()" (selectionChange)="store.selectPeriod($event.value)">
+        @for (period of store.periods(); track period.id) {
+          <mat-option [value]="period.id">{{ period.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </header>
+
+  @let summary = store.summary();
+  @let periodLabel = store.periodLabel(store.selectedPeriodId());
+
+  @if (summary.hasData) {
+    @if (summary.missingScopes.length) {
+      <p class="notice warning" role="status">
+        <mat-icon aria-hidden="true">info</mat-icon>
+        <span>
+          {{ 'analytics.dashboard.missingData' | translate: { period: periodLabel } }}
+          @for (scope of summary.missingScopes; track scope; let last = $last) {
+            <strong>{{ ('analytics.scopes.' + scope) | translate }}</strong>@if (!last) {, }
+          }
+        </span>
+      </p>
+    }
+
+    <div class="overview-grid">
+      <article class="card total-card" aria-labelledby="total-title">
+        <h2 id="total-title">{{ 'analytics.dashboard.totalEmissions' | translate }}</h2>
+        <p class="total-value">
+          {{ summary.totalTonnesCo2e | number: '1.0-0' }}
+          <span class="unit">{{ 'analytics.units.tonnes' | translate }}</span>
+        </p>
+        <p class="total-period">{{ 'analytics.dashboard.periodCaption' | translate: { period: periodLabel } }}</p>
+
+        @if (store.previousPeriodComparison(); as variation) {
+          <p class="variation" [class.increase]="variation.deltaPercent > 0" [class.decrease]="variation.deltaPercent < 0">
+            <mat-icon aria-hidden="true">{{ variation.deltaPercent > 0 ? 'trending_up' : 'trending_down' }}</mat-icon>
+            <span>
+              {{ variation.deltaPercent > 0 ? '+' : '' }}{{ variation.deltaPercent | number: '1.1-1' }} %
+              {{ 'analytics.dashboard.vsPrevious' | translate: { period: store.periodLabel(variation.base.periodId) } }}
+            </span>
+          </p>
+        }
+      </article>
+
+      <app-scope-distribution [summary]="summary" />
+    </div>
+  } @else {
+    <div class="card empty-state" role="status">
+      <mat-icon aria-hidden="true">insights</mat-icon>
+      <h2>{{ 'analytics.dashboard.emptyTitle' | translate: { period: periodLabel } }}</h2>
+      <p>{{ 'analytics.dashboard.emptyMessage' | translate }}</p>
+    </div>
+  }
+
+  <div class="overview-grid">
+    <app-period-comparison-card />
+    <app-goals-overview [goals]="store.goals()" />
+  </div>
+</section>
+

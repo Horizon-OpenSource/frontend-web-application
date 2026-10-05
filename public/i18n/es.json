@@ -13,5 +13,38 @@
   },
   "footer": {
     "copyright": "2026 Horizon. Todos los derechos reservados."
+  },
+  "analytics": {
+    "units": { "tonnes": "t CO₂e" },
+    "scopes": { "scope1": "Alcance 1", "scope2": "Alcance 2", "scope3": "Alcance 3" },
+    "filters": { "period": "Periodo", "allPeriods": "Todos los periodos" },
+    "dashboard": {
+      "title": "Panel principal",
+      "subtitle": "Resumen de la huella de carbono de {{organization}}",
+      "totalEmissions": "Emisiones totales",
+      "periodCaption": "Huella calculada para {{period}}",
+      "vsPrevious": "respecto a {{period}}",
+      "missingData": "Hay información sin resultados calculados para {{period}}:",
+      "emptyTitle": "No hay cálculos para {{period}}",
+      "emptyMessage": "Calcula la huella de carbono de este periodo o elige otro periodo."
+    },
+    "distribution": {
+      "title": "Emisiones por alcance",
+      "noData": "Sin emisiones calculadas"
+    },
+    "comparison": {
+      "title": "Comparar periodos",
+      "base": "Periodo base",
+      "target": "Periodo a comparar",
+      "variation": "Variación",
+      "insufficientData": "No hay datos suficientes para comparar estos periodos. Elige dos periodos con resultados calculados."
+    },
+    "goals": {
+      "title": "Metas ambientales",
+      "empty": "Todavía no se han definido metas ambientales.",
+      "progressLabel": "{{name}}: {{value}} % de avance",
+      "meta": "{{progress}} % completado, vence el {{date}}",
+      "status": { "active": "Activa", "achieved": "Cumplida", "atRisk": "En riesgo" }
+    }
   }
 }

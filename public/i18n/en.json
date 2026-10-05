@@ -78,7 +78,8 @@
     },
     "validation": {
       "required": "This field is required.",
-      "email": "Enter a valid email address."
+      "email": "Enter a valid email address.",
+      "passwordsMismatch": "Passwords do not match."
     },
     "actions": {
       "edit": "Edit organization",
@@ -113,6 +114,18 @@
       "active": "Active business unit",
       "statusActive": "Active",
       "statusInactive": "Inactive"
+    },
+    "register": {
+      "title": "Register your organization",
+      "description": "Create your organization to start managing environmental information.",
+      "organizationDetails": "Organization details",
+      "accountDetails": "Account details",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "accountEmail": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "action": "Create organization"
     }
   },
   "footer": {

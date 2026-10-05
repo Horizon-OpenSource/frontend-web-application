@@ -1,0 +1,335 @@
+<section class="register-page">
+
+  <header>
+    <h1>
+      {{ 'organization.register.title' | translate }}
+    </h1>
+
+    <p>
+      {{ 'organization.register.description' | translate }}
+    </p>
+  </header>
+
+
+  <mat-card appearance="outlined">
+
+    <mat-card-content>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="register()">
+
+        <!-- Organization Details -->
+
+        <section class="form-section">
+
+          <h2>
+            {{ 'organization.register.organizationDetails' | translate }}
+          </h2>
+
+          <div class="form-grid">
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.name' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="organizationName"/>
+
+              @if (form.controls.organizationName.hasError('required')) {
+                <mat-error>
+                  {{ 'organization.validation.required' | translate }}
+                </mat-error>
+              }
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.industry' | translate }}
+              </mat-label>
+
+              <mat-select formControlName="industry">
+
+                @for (industry of industries; track industry) {
+                  <mat-option [value]="industry">
+                    {{ industry }}
+                  </mat-option>
+                }
+
+              </mat-select>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.addressLine1' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="addressLine1"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.addressLine2' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="addressLine2"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.edit.city' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="city"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.edit.state' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="stateProvince"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.edit.postalCode' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="postalCode"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.edit.country' | translate }}
+              </mat-label>
+
+              <mat-select formControlName="country">
+
+                @for (country of countries; track country) {
+                  <mat-option [value]="country">
+                    {{ country }}
+                  </mat-option>
+                }
+
+              </mat-select>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.email' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                type="email"
+                formControlName="contactEmail"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.edit.phone' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="phone"/>
+
+            </mat-form-field>
+
+          </div>
+
+        </section>
+
+
+        <mat-divider/>
+
+
+        <!-- Account Details -->
+
+        <section class="form-section">
+
+          <h2>
+            {{ 'organization.register.accountDetails' | translate }}
+          </h2>
+
+          <div class="form-grid">
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.register.firstName' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="firstName"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+
+              <mat-label>
+                {{ 'organization.register.lastName' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="lastName"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.register.accountEmail' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                type="email"
+                formControlName="accountEmail"/>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.register.password' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                [type]="hidePassword() ? 'password' : 'text'"
+                formControlName="password"/>
+
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hidePassword.set(!hidePassword())"
+                aria-label="Toggle password visibility">
+
+                <mat-icon>
+                  {{ hidePassword() ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+
+              </button>
+
+            </mat-form-field>
+
+
+            <mat-form-field
+              appearance="outline"
+              class="full-width">
+
+              <mat-label>
+                {{ 'organization.register.confirmPassword' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                [type]="hideConfirmPassword() ? 'password' : 'text'"
+                formControlName="confirmPassword"/>
+
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hideConfirmPassword.set(!hideConfirmPassword())"
+                aria-label="Toggle confirm password visibility">
+
+                <mat-icon>
+                  {{ hideConfirmPassword() ? 'visibility' : 'visibility_off' }}
+                </mat-icon>
+
+              </button>
+
+              @if (form.hasError('passwordsMismatch')) {
+                <mat-error>
+                  {{ 'organization.validation.passwordsMismatch' | translate }}
+                </mat-error>
+              }
+
+            </mat-form-field>
+
+          </div>
+
+        </section>
+
+
+        <button
+          mat-flat-button
+          class="submit-button"
+          type="submit">
+
+          {{ 'organization.register.action' | translate }}
+
+        </button>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</section>

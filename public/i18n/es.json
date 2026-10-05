@@ -78,7 +78,8 @@
     },
     "validation": {
       "required": "Este campo es obligatorio.",
-      "email": "Ingresa un correo electrónico válido."
+      "email": "Ingresa un correo electrónico válido.",
+      "passwordsMismatch": "Las contraseñas no coinciden."
     },
     "actions": {
       "edit": "Editar organización",
@@ -113,6 +114,18 @@
       "active": "Unidad de negocio activa",
       "statusActive": "Activa",
       "statusInactive": "Inactiva"
+    },
+    "register": {
+      "title": "Registra tu organización",
+      "description": "Crea tu organización para comenzar a gestionar la información ambiental.",
+      "organizationDetails": "Datos de la organización",
+      "accountDetails": "Datos de la cuenta",
+      "firstName": "Nombres",
+      "lastName": "Apellidos",
+      "accountEmail": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "action": "Crear organización"
     }
   },
   "footer": {

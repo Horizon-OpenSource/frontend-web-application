@@ -29,6 +29,8 @@ export class OrganizationStore {
   readonly loading = signal(false);
   readonly error = signal(false);
 
+  readonly currentOrganizationId = signal(1);
+
   readonly registeredSites = computed(
     () => this.sites().length
   );
@@ -37,7 +39,11 @@ export class OrganizationStore {
     () => this.businessUnits().length
   );
 
-  loadOverview(organizationId: number = 1): void {
+  loadOverview(
+    organizationId: number = this.currentOrganizationId()
+  ): void {
+
+    this.currentOrganizationId.set(organizationId);
 
     this.loading.set(true);
     this.error.set(false);
@@ -55,9 +61,7 @@ export class OrganizationStore {
       activities:
         this.organizationApi.getActivities(organizationId)
     }).subscribe({
-
       next: data => {
-
         this.organization.set(data.organization);
         this.sites.set(data.sites);
         this.businessUnits.set(data.businessUnits);
@@ -70,7 +74,6 @@ export class OrganizationStore {
         this.error.set(true);
         this.loading.set(false);
       }
-
     });
   }
 
@@ -87,7 +90,9 @@ export class OrganizationStore {
       );
   }
 
-  loadSites(organizationId: number = 1): void {
+  loadSites(
+    organizationId: number = this.currentOrganizationId()
+  ): void {
     this.loading.set(true);
     this.error.set(false);
 
@@ -119,7 +124,9 @@ export class OrganizationStore {
       });
   }
 
-  loadBusinessUnits(organizationId: number = 1): void {
+  loadBusinessUnits(
+    organizationId: number = this.currentOrganizationId()
+  ): void {
     this.loading.set(true);
     this.error.set(false);
 
@@ -151,5 +158,30 @@ export class OrganizationStore {
           ]);
         }
       });
+  }
+
+
+  createOrganization(
+    organization: Omit<Organization, 'id'>
+  ): Observable<Organization> {
+
+    return this.organizationApi
+      .createOrganization(organization)
+      .pipe(
+        tap(createdOrganization => {
+
+          this.currentOrganizationId.set(
+            createdOrganization.id
+          );
+
+          this.organization.set(
+            createdOrganization
+          );
+
+          this.sites.set([]);
+          this.businessUnits.set([]);
+          this.activities.set([]);
+        })
+      );
   }
 }

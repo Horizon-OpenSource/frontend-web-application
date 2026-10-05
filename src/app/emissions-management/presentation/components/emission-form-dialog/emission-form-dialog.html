@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>{{ (isEditing ? 'emissions.form.editTitle' : 'emissions.form.createTitle') | translate }}</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-grid">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'emissions.fields.sourceName' | translate }}</mat-label>
+      <input matInput formControlName="sourceName" autocomplete="off" />
+      @if (form.controls.sourceName.invalid && form.controls.sourceName.touched) {
+        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.sourceType' | translate }}</mat-label>
+      <input matInput formControlName="sourceType" autocomplete="off" />
+      @if (form.controls.sourceType.invalid && form.controls.sourceType.touched) {
+        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.facility' | translate }}</mat-label>
+      <mat-select formControlName="facilityId">
+        @for (facility of data.facilities; track facility.id) {
+          <mat-option [value]="facility.id">{{ facility.name }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.facilityId.invalid && form.controls.facilityId.touched) {
+        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.scope' | translate }}</mat-label>
+      <mat-select formControlName="scope">
+        @for (scope of scopes; track scope) {
+          <mat-option [value]="scope">{{ ('emissions.scopes.' + scope) | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.quantity' | translate }}</mat-label>
+      <input matInput type="number" min="0.01" step="0.01" formControlName="quantity" />
+      @if (form.controls.quantity.invalid && form.controls.quantity.touched) {
+        <mat-error>{{ 'emissions.validation.positive' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.unit' | translate }}</mat-label>
+      <input matInput formControlName="unit" placeholder="kWh, L, km..." autocomplete="off" />
+      @if (form.controls.unit.invalid && form.controls.unit.touched) {
+        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.period' | translate }}</mat-label>
+      <input matInput type="month" formControlName="period" />
+      @if (form.controls.period.invalid && form.controls.period.touched) {
+        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'emissions.fields.origin' | translate }}</mat-label>
+      <mat-select formControlName="origin">
+        @for (origin of origins; track origin) {
+          <mat-option [value]="origin">{{ ('emissions.origins.' + origin) | translate }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">{{ 'emissions.actions.cancel' | translate }}</button>
+    <button mat-flat-button type="submit">{{ 'emissions.actions.save' | translate }}</button>
+  </mat-dialog-actions>
+</form>

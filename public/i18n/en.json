@@ -97,6 +97,22 @@
       "active": "Active site",
       "statusActive": "Active",
       "statusInactive": "Inactive"
+    },
+    "businessUnits": {
+      "title": "Business units",
+      "description": "Manage the operational areas of your organization.",
+      "addTitle": "Add business unit",
+      "addAction": "Add business unit",
+      "name": "Business unit",
+      "code": "Code",
+      "site": "Site",
+      "responsible": "Responsible",
+      "descriptionField": "Description",
+      "emissionSources": "Emission sources",
+      "status": "Status",
+      "active": "Active business unit",
+      "statusActive": "Active",
+      "statusInactive": "Inactive"
     }
   },
   "footer": {

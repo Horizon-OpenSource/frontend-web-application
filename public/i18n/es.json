@@ -97,6 +97,22 @@
       "active": "Sede activa",
       "statusActive": "Activa",
       "statusInactive": "Inactiva"
+    },
+    "businessUnits": {
+      "title": "Unidades de negocio",
+      "description": "Administra las áreas operativas de tu organización.",
+      "addTitle": "Agregar unidad de negocio",
+      "addAction": "Agregar unidad",
+      "name": "Unidad de negocio",
+      "code": "Código",
+      "site": "Sede",
+      "responsible": "Responsable",
+      "descriptionField": "Descripción",
+      "emissionSources": "Fuentes de emisión",
+      "status": "Estado",
+      "active": "Unidad de negocio activa",
+      "statusActive": "Activa",
+      "statusInactive": "Inactiva"
     }
   },
   "footer": {

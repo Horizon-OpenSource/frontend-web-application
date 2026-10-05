@@ -4,6 +4,7 @@ import { OrganizationShell } from './organization-management/presentation/pages/
 import { OrganizationOverview } from './organization-management/presentation/pages/organization-overview/organization-overview';
 import { OrganizationEdit } from './organization-management/presentation/pages/organization-edit/organization-edit';
 import { Sites } from './organization-management/presentation/pages/sites/sites';
+import { BusinessUnits } from './organization-management/presentation/pages/business-units/business-units';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,10 @@ export const routes: Routes = [
       {
         path: 'sites',
         component: Sites
+      },
+      {
+        path: 'business-units',
+        component: BusinessUnits
       }
     ]
   },

@@ -118,4 +118,38 @@ export class OrganizationStore {
         }
       });
   }
+
+  loadBusinessUnits(organizationId: number = 1): void {
+    this.loading.set(true);
+    this.error.set(false);
+
+    this.organizationApi
+      .getBusinessUnits(organizationId)
+      .subscribe({
+        next: businessUnits => {
+          this.businessUnits.set(businessUnits);
+          this.loading.set(false);
+        },
+
+        error: () => {
+          this.error.set(true);
+          this.loading.set(false);
+        }
+      });
+  }
+
+  createBusinessUnit(
+    businessUnit: Omit<BusinessUnit, 'id'>
+  ): void {
+    this.organizationApi
+      .createBusinessUnit(businessUnit)
+      .subscribe({
+        next: createdBusinessUnit => {
+          this.businessUnits.update(units => [
+            ...units,
+            createdBusinessUnit
+          ]);
+        }
+      });
+  }
 }

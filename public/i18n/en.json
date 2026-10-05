@@ -207,6 +207,81 @@
       "operationError": "The operation could not be completed."
     }
   },
+  "carbonFootprint": {
+    "eyebrow": "Carbon footprint calculation",
+    "title": "Carbon footprint",
+    "subtitle": "Select the emission factor for each activity data record and calculate the footprint of a reporting period.",
+    "period": {
+      "label": "Reporting period"
+    },
+    "actions": {
+      "calculate": "Calculate footprint",
+      "clearResults": "Clear results",
+      "resetDemo": "Reset demo data",
+      "close": "Close"
+    },
+    "activity": {
+      "title": "Activity data and emission factors",
+      "subtitle": "{{count}} activity data records in this period",
+      "empty": "There is no activity data registered for this period."
+    },
+    "fields": {
+      "source": "Emission source",
+      "scope": "Scope",
+      "quantity": "Quantity",
+      "factor": "Emission factor",
+      "status": "Status",
+      "period": "Period",
+      "calculatedAt": "Calculated at",
+      "records": "Records",
+      "total": "Total"
+    },
+    "scopes": {
+      "SCOPE_1": "Scope 1",
+      "SCOPE_2": "Scope 2",
+      "SCOPE_3": "Scope 3"
+    },
+    "factor": {
+      "none": "No factor selected",
+      "select": "Select emission factor",
+      "perUnit": "{{value}} kgCO₂e per {{unit}}"
+    },
+    "status": {
+      "READY": "Ready",
+      "MISSING_FACTOR": "Missing factor",
+      "INCOMPATIBLE_FACTOR": "Incompatible factor",
+      "MISSING_INFORMATION": "Missing information"
+    },
+    "pending": {
+      "NO_ACTIVITY_DATA": "There is no activity data registered for this period.",
+      "MISSING_FACTOR": "No emission factor has been selected.",
+      "INCOMPATIBLE_FACTOR": "The selected emission factor is not compatible with this activity data.",
+      "MISSING_INFORMATION": "The quantity or the unit is missing."
+    },
+    "incomplete": {
+      "title": "The calculation could not be completed",
+      "message": "There is not enough information to calculate period {{period}}. Complete the following items and calculate again:"
+    },
+    "completed": {
+      "message": "Carbon footprint of period {{period}}:"
+    },
+    "results": {
+      "title": "Results for {{period}}",
+      "total": "Total footprint",
+      "noResults": "No results available for this period.",
+      "noScopeResults": "No results available for this scope in this period.",
+      "records": "{{count}} records"
+    },
+    "history": {
+      "title": "Calculation history",
+      "empty": "No previous calculations found."
+    },
+    "messages": {
+      "calculated": "Carbon footprint calculated.",
+      "cleared": "Results cleared.",
+      "reset": "Demo data restored."
+    }
+  },
   "footer": {
     "copyright": "2026 Horizon. All rights reserved."
   }

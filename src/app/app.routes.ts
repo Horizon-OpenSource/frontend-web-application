@@ -47,6 +47,18 @@ export const routes: Routes = [
   },
 
   {
+    path: 'carbon-footprint',
+
+    loadChildren: () =>
+      import(
+        './carbon-footprint-calculation/carbon-footprint.routes'
+        ).then(
+        module =>
+          module.CARBON_FOOTPRINT_ROUTES
+      )
+  },
+
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'organization'
@@ -56,4 +68,4 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'organization'
   }
-];
+]

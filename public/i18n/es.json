@@ -207,6 +207,81 @@
       "operationError": "No se pudo completar la operación."
     }
   },
+  "carbonFootprint": {
+    "eyebrow": "Cálculo de huella de carbono",
+    "title": "Huella de carbono",
+    "subtitle": "Selecciona el factor de emisión de cada dato de actividad y calcula la huella de un periodo de reporte.",
+    "period": {
+      "label": "Periodo de reporte"
+    },
+    "actions": {
+      "calculate": "Calcular huella",
+      "clearResults": "Limpiar resultados",
+      "resetDemo": "Restablecer datos de demostración",
+      "close": "Cerrar"
+    },
+    "activity": {
+      "title": "Datos de actividad y factores de emisión",
+      "subtitle": "{{count}} datos de actividad en este periodo",
+      "empty": "No hay datos de actividad registrados para este periodo."
+    },
+    "fields": {
+      "source": "Fuente de emisión",
+      "scope": "Alcance",
+      "quantity": "Cantidad",
+      "factor": "Factor de emisión",
+      "status": "Estado",
+      "period": "Periodo",
+      "calculatedAt": "Calculado el",
+      "records": "Registros",
+      "total": "Total"
+    },
+    "scopes": {
+      "SCOPE_1": "Alcance 1",
+      "SCOPE_2": "Alcance 2",
+      "SCOPE_3": "Alcance 3"
+    },
+    "factor": {
+      "none": "Sin factor seleccionado",
+      "select": "Seleccionar factor de emisión",
+      "perUnit": "{{value}} kgCO₂e por {{unit}}"
+    },
+    "status": {
+      "READY": "Listo",
+      "MISSING_FACTOR": "Falta el factor",
+      "INCOMPATIBLE_FACTOR": "Factor incompatible",
+      "MISSING_INFORMATION": "Falta información"
+    },
+    "pending": {
+      "NO_ACTIVITY_DATA": "No hay datos de actividad registrados para este periodo.",
+      "MISSING_FACTOR": "No se ha seleccionado un factor de emisión.",
+      "INCOMPATIBLE_FACTOR": "El factor de emisión seleccionado no es compatible con este dato de actividad.",
+      "MISSING_INFORMATION": "Falta la cantidad o la unidad."
+    },
+    "incomplete": {
+      "title": "No se pudo completar el cálculo",
+      "message": "No hay información suficiente para calcular el periodo {{period}}. Completa los siguientes elementos y vuelve a calcular:"
+    },
+    "completed": {
+      "message": "Huella de carbono del periodo {{period}}:"
+    },
+    "results": {
+      "title": "Resultados de {{period}}",
+      "total": "Huella total",
+      "noResults": "No hay resultados disponibles para este periodo.",
+      "noScopeResults": "No hay resultados disponibles para este alcance en este periodo.",
+      "records": "{{count}} registros"
+    },
+    "history": {
+      "title": "Historial de cálculos",
+      "empty": "No se encontraron cálculos anteriores."
+    },
+    "messages": {
+      "calculated": "Huella de carbono calculada.",
+      "cleared": "Resultados eliminados.",
+      "reset": "Datos de demostración restablecidos."
+    }
+  },
   "footer": {
     "copyright": "2026 Horizon. Todos los derechos reservados."
   }

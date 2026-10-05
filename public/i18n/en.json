@@ -16,12 +16,12 @@
     "subtitle": "Manage your organization's information and structure.",
     "tabs": {
       "overview": "Overview",
-      "users": "Users",
-      "sites": "Sites & Permissions",
+      "sites": "Sites",
       "businessUnits": "Business Units"
     },
     "fields": {
       "address": "Address",
+      "location": "Location",
       "country": "Country",
       "email": "Contact Email",
       "phone": "Phone"
@@ -32,7 +32,10 @@
       "businessUnits": "Business Units"
     },
     "actions": {
-      "edit": "Edit Organization"
+      "edit": "Edit organization",
+      "cancel": "Cancel",
+      "save": "Save changes",
+      "close": "Close"
     },
     "activity": {
       "title": "Recent Activity"
@@ -78,13 +81,7 @@
     },
     "validation": {
       "required": "This field is required.",
-      "email": "Enter a valid email address.",
-      "passwordsMismatch": "Passwords do not match."
-    },
-    "actions": {
-      "edit": "Edit organization",
-      "cancel": "Cancel",
-      "save": "Save changes"
+      "email": "Enter a valid email address."
     },
     "sites": {
       "title": "Sites",
@@ -117,15 +114,19 @@
     },
     "register": {
       "title": "Register your organization",
-      "description": "Create your organization to start managing environmental information.",
+      "description": "Add your organization to start managing its environmental information.",
       "organizationDetails": "Organization details",
-      "accountDetails": "Account details",
-      "firstName": "First name",
-      "lastName": "Last name",
-      "accountEmail": "Email address",
-      "password": "Password",
-      "confirmPassword": "Confirm password",
       "action": "Create organization"
+    },
+    "messages": {
+      "created": "Organization created successfully.",
+      "createError": "Unable to create organization.",
+      "updated": "Organization updated successfully.",
+      "updateError": "Unable to update organization.",
+      "siteCreated": "Site created successfully.",
+      "siteCreateError": "Unable to create site.",
+      "businessUnitCreated": "Business unit created successfully.",
+      "businessUnitCreateError": "Unable to create business unit."
     }
   },
   "footer": {

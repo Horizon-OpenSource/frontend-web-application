@@ -1,15 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
-  signal
+  inject
 } from '@angular/core';
 
 import {
-  AbstractControl,
   FormBuilder,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators
 } from '@angular/forms';
 
@@ -17,14 +14,15 @@ import { Router } from '@angular/router';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  TranslatePipe,
+  TranslateService
+} from '@ngx-translate/core';
 
 import { OrganizationStore } from '../../../application/organization.store';
 
@@ -35,29 +33,37 @@ import { OrganizationStore } from '../../../application/organization.store';
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    MatDividerModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
     MatSelectModule,
     TranslatePipe
   ],
 
-  templateUrl: './organization-register.html',
-  styleUrl: './organization-register.scss',
+  templateUrl:
+    './organization-register.html',
 
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl:
+    './organization-register.scss',
+
+  changeDetection:
+  ChangeDetectionStrategy.OnPush
 })
 export class OrganizationRegister {
 
-  private readonly formBuilder = inject(FormBuilder);
-  private readonly router = inject(Router);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly formBuilder =
+    inject(FormBuilder);
 
-  protected readonly store = inject(OrganizationStore);
+  private readonly router =
+    inject(Router);
 
-  protected readonly hidePassword = signal(true);
-  protected readonly hideConfirmPassword = signal(true);
+  private readonly snackBar =
+    inject(MatSnackBar);
+
+  private readonly translate =
+    inject(TranslateService);
+
+  protected readonly store =
+    inject(OrganizationStore);
 
   protected readonly industries = [
     'Manufacturing & Energy',
@@ -75,8 +81,9 @@ export class OrganizationRegister {
     'Ecuador'
   ];
 
-  protected readonly form = this.formBuilder.nonNullable.group(
-    {
+  protected readonly form =
+    this.formBuilder.nonNullable.group({
+
       organizationName: [
         '',
         Validators.required
@@ -87,10 +94,23 @@ export class OrganizationRegister {
         Validators.required
       ],
 
-      addressLine1: [''],
+      addressLine1: [
+        '',
+        Validators.required
+      ],
+
       addressLine2: [''],
-      city: [''],
-      stateProvince: [''],
+
+      city: [
+        '',
+        Validators.required
+      ],
+
+      stateProvince: [
+        '',
+        Validators.required
+      ],
+
       postalCode: [''],
 
       country: [
@@ -109,43 +129,8 @@ export class OrganizationRegister {
       phone: [
         '',
         Validators.required
-      ],
-
-      firstName: [
-        '',
-        Validators.required
-      ],
-
-      lastName: [
-        '',
-        Validators.required
-      ],
-
-      accountEmail: [
-        '',
-        [
-          Validators.required,
-          Validators.email
-        ]
-      ],
-
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6)
-        ]
-      ],
-
-      confirmPassword: [
-        '',
-        Validators.required
       ]
-    },
-    {
-      validators: this.passwordsMatchValidator
-    }
-  );
+    });
 
   protected register(): void {
 
@@ -154,34 +139,59 @@ export class OrganizationRegister {
       return;
     }
 
-    const value = this.form.getRawValue();
+    const value =
+      this.form.getRawValue();
 
     this.form.disable();
 
     this.store
       .createOrganization({
-        name: value.organizationName,
-        industry: value.industry,
 
-        addressLine1: value.addressLine1,
-        addressLine2: value.addressLine2,
+        name:
+        value.organizationName,
 
-        city: value.city,
-        stateProvince: value.stateProvince,
-        postalCode: value.postalCode,
-        country: value.country,
+        industry:
+        value.industry,
 
-        contactEmail: value.contactEmail,
-        phone: value.phone,
+        addressLine1:
+        value.addressLine1,
+
+        addressLine2:
+        value.addressLine2,
+
+        city:
+        value.city,
+
+        stateProvince:
+        value.stateProvince,
+
+        postalCode:
+        value.postalCode,
+
+        country:
+        value.country,
+
+        contactEmail:
+        value.contactEmail,
+
+        phone:
+        value.phone,
 
         activeUsers: 1
       })
       .subscribe({
+
         next: () => {
 
           this.snackBar.open(
-            'Organization created successfully',
-            'Close',
+            this.translate.instant(
+              'organization.messages.created'
+            ),
+
+            this.translate.instant(
+              'organization.actions.close'
+            ),
+
             {
               duration: 3000
             }
@@ -197,28 +207,19 @@ export class OrganizationRegister {
           this.form.enable();
 
           this.snackBar.open(
-            'Unable to create organization',
-            'Close',
+            this.translate.instant(
+              'organization.messages.createError'
+            ),
+
+            this.translate.instant(
+              'organization.actions.close'
+            ),
+
             {
               duration: 3000
             }
           );
         }
       });
-  }
-
-  private passwordsMatchValidator(
-    control: AbstractControl
-  ): ValidationErrors | null {
-
-    const password =
-      control.get('password')?.value;
-
-    const confirmPassword =
-      control.get('confirmPassword')?.value;
-
-    return password === confirmPassword
-      ? null
-      : { passwordsMismatch: true };
   }
 }

@@ -16,12 +16,12 @@
     "subtitle": "Administra la información y estructura de tu organización.",
     "tabs": {
       "overview": "Resumen",
-      "users": "Usuarios",
-      "sites": "Sedes y permisos",
+      "sites": "Sedes",
       "businessUnits": "Unidades de negocio"
     },
     "fields": {
       "address": "Dirección",
+      "location": "Ubicación",
       "country": "País",
       "email": "Correo de contacto",
       "phone": "Teléfono"
@@ -32,7 +32,10 @@
       "businessUnits": "Unidades de negocio"
     },
     "actions": {
-      "edit": "Editar organización"
+      "edit": "Editar organización",
+      "cancel": "Cancelar",
+      "save": "Guardar cambios",
+      "close": "Cerrar"
     },
     "activity": {
       "title": "Actividad reciente"
@@ -78,13 +81,7 @@
     },
     "validation": {
       "required": "Este campo es obligatorio.",
-      "email": "Ingresa un correo electrónico válido.",
-      "passwordsMismatch": "Las contraseñas no coinciden."
-    },
-    "actions": {
-      "edit": "Editar organización",
-      "cancel": "Cancelar",
-      "save": "Guardar cambios"
+      "email": "Ingresa un correo electrónico válido."
     },
     "sites": {
       "title": "Sedes",
@@ -117,15 +114,19 @@
     },
     "register": {
       "title": "Registra tu organización",
-      "description": "Crea tu organización para comenzar a gestionar la información ambiental.",
+      "description": "Agrega tu organización para comenzar a gestionar su información ambiental.",
       "organizationDetails": "Datos de la organización",
-      "accountDetails": "Datos de la cuenta",
-      "firstName": "Nombres",
-      "lastName": "Apellidos",
-      "accountEmail": "Correo electrónico",
-      "password": "Contraseña",
-      "confirmPassword": "Confirmar contraseña",
       "action": "Crear organización"
+    },
+    "messages": {
+      "created": "Organización creada correctamente.",
+      "createError": "No se pudo crear la organización.",
+      "updated": "Organización actualizada correctamente.",
+      "updateError": "No se pudo actualizar la organización.",
+      "siteCreated": "Sede creada correctamente.",
+      "siteCreateError": "No se pudo crear la sede.",
+      "businessUnitCreated": "Unidad de negocio creada correctamente.",
+      "businessUnitCreateError": "No se pudo crear la unidad de negocio."
     }
   },
   "footer": {

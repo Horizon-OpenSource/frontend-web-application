@@ -22,7 +22,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  TranslatePipe,
+  TranslateService
+} from '@ngx-translate/core';
 
 import { OrganizationStore } from '../../../application/organization.store';
 
@@ -48,6 +51,8 @@ export class OrganizationEdit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly translate =
+    inject(TranslateService);
 
   protected readonly store = inject(OrganizationStore);
 
@@ -121,19 +126,30 @@ export class OrganizationEdit {
     this.form.disable();
 
     this.store
-      .updateOrganization(1, this.form.getRawValue())
+      .updateOrganization(
+        this.form.getRawValue()
+      )
       .subscribe({
+
         next: () => {
 
           this.snackBar.open(
-            'Organization updated successfully',
-            'Close',
+            this.translate.instant(
+              'organization.messages.updated'
+            ),
+
+            this.translate.instant(
+              'organization.actions.close'
+            ),
+
             {
               duration: 3000
             }
           );
 
-          this.router.navigate(['/organization']);
+          this.router.navigate([
+            '/organization'
+          ]);
         },
 
         error: () => {
@@ -141,8 +157,14 @@ export class OrganizationEdit {
           this.form.enable();
 
           this.snackBar.open(
-            'Unable to update organization',
-            'Close',
+            this.translate.instant(
+              'organization.messages.updateError'
+            ),
+
+            this.translate.instant(
+              'organization.actions.close'
+            ),
+
             {
               duration: 3000
             }

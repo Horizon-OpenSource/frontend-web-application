@@ -13,7 +13,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  TranslatePipe,
+  TranslateService
+} from '@ngx-translate/core';
 
 import { OrganizationStore } from '../../../application/organization.store';
 
@@ -39,14 +42,22 @@ import {
   templateUrl: './business-units.html',
   styleUrl: './business-units.scss',
 
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection:
+  ChangeDetectionStrategy.OnPush
 })
 export class BusinessUnits {
 
-  private readonly dialog = inject(MatDialog);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly dialog =
+    inject(MatDialog);
 
-  protected readonly store = inject(OrganizationStore);
+  private readonly snackBar =
+    inject(MatSnackBar);
+
+  private readonly translate =
+    inject(TranslateService);
+
+  protected readonly store =
+    inject(OrganizationStore);
 
   protected readonly displayedColumns = [
     'name',
@@ -58,47 +69,98 @@ export class BusinessUnits {
 
   constructor() {
 
-    if (this.store.sites().length === 0) {
+    if (
+      this.store.sites().length === 0
+    ) {
       this.store.loadSites();
     }
 
     this.store.loadBusinessUnits();
   }
 
-  protected getSiteName(siteId: number): string {
+  protected getSiteName(
+    siteId: number
+  ): string {
+
     return this.store
       .sites()
-      .find(site => site.id === siteId)?.name ?? '-';
+      .find(
+        site =>
+          site.id === siteId
+      )?.name ?? '-';
   }
 
   protected openAddBusinessUnitDialog(): void {
 
-    const dialogRef = this.dialog.open(
-      BusinessUnitFormDialog,
-      {
-        width: '560px',
-        data: this.store.sites()
-      }
-    );
+    const dialogRef =
+      this.dialog.open(
+        BusinessUnitFormDialog,
+        {
+          width: '560px',
+
+          data: {
+            organizationId:
+              this.store.currentOrganizationId(),
+
+            sites:
+              this.store.sites()
+          }
+        }
+      );
 
     dialogRef
       .afterClosed()
       .subscribe(
-        (businessUnit: Omit<BusinessUnit, 'id'> | undefined) => {
+        (
+          businessUnit:
+            Omit<BusinessUnit, 'id'>
+            | undefined
+        ) => {
 
           if (!businessUnit) {
             return;
           }
 
-          this.store.createBusinessUnit(businessUnit);
+          this.store
+            .createBusinessUnit(
+              businessUnit
+            )
+            .subscribe({
 
-          this.snackBar.open(
-            'Business unit created successfully',
-            'Close',
-            {
-              duration: 3000
-            }
-          );
+              next: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitCreated'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              },
+
+              error: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitCreateError'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            });
         }
       );
   }

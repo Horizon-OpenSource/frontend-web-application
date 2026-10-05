@@ -9,6 +9,7 @@
     [formGroup]="form"
     (ngSubmit)="save()">
 
+    <!-- Nombre -->
     <mat-form-field appearance="outline">
       <mat-label>
         {{ 'organization.businessUnits.name' | translate }}
@@ -26,6 +27,7 @@
     </mat-form-field>
 
 
+    <!-- Código -->
     <mat-form-field appearance="outline">
       <mat-label>
         {{ 'organization.businessUnits.code' | translate }}
@@ -34,9 +36,16 @@
       <input
         matInput
         formControlName="code"/>
+
+      @if (form.controls.code.hasError('required')) {
+        <mat-error>
+          {{ 'organization.validation.required' | translate }}
+        </mat-error>
+      }
     </mat-form-field>
 
 
+    <!-- Sede -->
     <mat-form-field appearance="outline">
       <mat-label>
         {{ 'organization.businessUnits.site' | translate }}
@@ -51,9 +60,19 @@
         }
 
       </mat-select>
+
+      @if (
+        form.controls.siteId.invalid &&
+        form.controls.siteId.touched
+        ) {
+        <mat-error>
+          {{ 'organization.validation.required' | translate }}
+        </mat-error>
+      }
     </mat-form-field>
 
 
+    <!-- Responsable -->
     <mat-form-field appearance="outline">
       <mat-label>
         {{ 'organization.businessUnits.responsible' | translate }}
@@ -62,9 +81,16 @@
       <input
         matInput
         formControlName="responsible"/>
+
+      @if (form.controls.responsible.hasError('required')) {
+        <mat-error>
+          {{ 'organization.validation.required' | translate }}
+        </mat-error>
+      }
     </mat-form-field>
 
 
+    <!-- Descripción -->
     <mat-form-field appearance="outline">
       <mat-label>
         {{ 'organization.businessUnits.descriptionField' | translate }}
@@ -78,6 +104,7 @@
     </mat-form-field>
 
 
+    <!-- Estado -->
     <mat-slide-toggle formControlName="active">
       {{ 'organization.businessUnits.active' | translate }}
     </mat-slide-toggle>

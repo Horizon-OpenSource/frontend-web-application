@@ -21,15 +21,24 @@ export class OrganizationStore {
 
   private readonly organizationApi = inject(OrganizationApi);
 
+  private readonly organizationStorageKey =
+    'ecotrack.currentOrganizationId';
+
   readonly organization = signal<Organization | null>(null);
+
   readonly sites = signal<Site[]>([]);
+
   readonly businessUnits = signal<BusinessUnit[]>([]);
+
   readonly activities = signal<OrganizationActivity[]>([]);
 
   readonly loading = signal(false);
+
   readonly error = signal(false);
 
-  readonly currentOrganizationId = signal(1);
+  readonly currentOrganizationId = signal(
+    this.getStoredOrganizationId()
+  );
 
   readonly registeredSites = computed(
     () => this.sites().length
@@ -43,7 +52,7 @@ export class OrganizationStore {
     organizationId: number = this.currentOrganizationId()
   ): void {
 
-    this.currentOrganizationId.set(organizationId);
+    this.setCurrentOrganizationId(organizationId);
 
     this.loading.set(true);
     this.error.set(false);
@@ -62,9 +71,13 @@ export class OrganizationStore {
         this.organizationApi.getActivities(organizationId)
     }).subscribe({
       next: data => {
+
         this.organization.set(data.organization);
+
         this.sites.set(data.sites);
+
         this.businessUnits.set(data.businessUnits);
+
         this.activities.set(data.activities);
 
         this.loading.set(false);
@@ -78,11 +91,14 @@ export class OrganizationStore {
   }
 
   updateOrganization(
-    id: number,
     changes: Partial<Organization>
   ): Observable<Organization> {
+
     return this.organizationApi
-      .updateOrganization(id, changes)
+      .updateOrganization(
+        this.currentOrganizationId(),
+        changes
+      )
       .pipe(
         tap(updatedOrganization => {
           this.organization.set(updatedOrganization);
@@ -93,6 +109,7 @@ export class OrganizationStore {
   loadSites(
     organizationId: number = this.currentOrganizationId()
   ): void {
+
     this.loading.set(true);
     this.error.set(false);
 
@@ -111,22 +128,26 @@ export class OrganizationStore {
       });
   }
 
-  createSite(site: Omit<Site, 'id'>): void {
-    this.organizationApi
+  createSite(
+    site: Omit<Site, 'id'>
+  ): Observable<Site> {
+
+    return this.organizationApi
       .createSite(site)
-      .subscribe({
-        next: createdSite => {
+      .pipe(
+        tap(createdSite => {
           this.sites.update(sites => [
             ...sites,
             createdSite
           ]);
-        }
-      });
+        })
+      );
   }
 
   loadBusinessUnits(
     organizationId: number = this.currentOrganizationId()
   ): void {
+
     this.loading.set(true);
     this.error.set(false);
 
@@ -134,7 +155,9 @@ export class OrganizationStore {
       .getBusinessUnits(organizationId)
       .subscribe({
         next: businessUnits => {
+
           this.businessUnits.set(businessUnits);
+
           this.loading.set(false);
         },
 
@@ -147,19 +170,21 @@ export class OrganizationStore {
 
   createBusinessUnit(
     businessUnit: Omit<BusinessUnit, 'id'>
-  ): void {
-    this.organizationApi
+  ): Observable<BusinessUnit> {
+
+    return this.organizationApi
       .createBusinessUnit(businessUnit)
-      .subscribe({
-        next: createdBusinessUnit => {
+      .pipe(
+        tap(createdBusinessUnit => {
+
           this.businessUnits.update(units => [
             ...units,
             createdBusinessUnit
           ]);
-        }
-      });
-  }
 
+        })
+      );
+  }
 
   createOrganization(
     organization: Omit<Organization, 'id'>
@@ -170,7 +195,7 @@ export class OrganizationStore {
       .pipe(
         tap(createdOrganization => {
 
-          this.currentOrganizationId.set(
+          this.setCurrentOrganizationId(
             createdOrganization.id
           );
 
@@ -179,9 +204,37 @@ export class OrganizationStore {
           );
 
           this.sites.set([]);
+
           this.businessUnits.set([]);
+
           this.activities.set([]);
         })
       );
+  }
+
+  private setCurrentOrganizationId(
+    id: number
+  ): void {
+
+    this.currentOrganizationId.set(id);
+
+    localStorage.setItem(
+      this.organizationStorageKey,
+      String(id)
+    );
+  }
+
+  private getStoredOrganizationId(): number {
+
+    const storedValue = localStorage.getItem(
+      this.organizationStorageKey
+    );
+
+    const organizationId = Number(storedValue);
+
+    return Number.isInteger(organizationId)
+    && organizationId > 0
+      ? organizationId
+      : 1;
   }
 }

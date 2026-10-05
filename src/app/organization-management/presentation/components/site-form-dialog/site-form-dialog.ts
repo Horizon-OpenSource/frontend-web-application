@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 
 import {
+  MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef
 } from '@angular/material/dialog';
@@ -23,6 +24,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { Site } from '../../../domain/model/site.entity';
+
+interface SiteFormDialogData {
+  organizationId: number;
+}
 
 @Component({
   selector: 'app-site-form-dialog',
@@ -44,16 +49,21 @@ import { Site } from '../../../domain/model/site.entity';
 })
 export class SiteFormDialog {
 
-  private readonly formBuilder = inject(FormBuilder);
-  private readonly dialogRef = inject(
-    MatDialogRef<SiteFormDialog>
-  );
+  private readonly formBuilder =
+    inject(FormBuilder);
 
-  protected readonly form = this.formBuilder.nonNullable.group({
-    name: ['', Validators.required],
-    location: ['', Validators.required],
-    active: [true]
-  });
+  private readonly dialogRef =
+    inject(MatDialogRef<SiteFormDialog>);
+
+  private readonly data =
+    inject<SiteFormDialogData>(MAT_DIALOG_DATA);
+
+  protected readonly form =
+    this.formBuilder.nonNullable.group({
+      name: ['', Validators.required],
+      location: ['', Validators.required],
+      active: [true]
+    });
 
   protected save(): void {
 
@@ -65,10 +75,16 @@ export class SiteFormDialog {
     const value = this.form.getRawValue();
 
     const site: Omit<Site, 'id'> = {
-      organizationId: 1,
+
+      organizationId:
+      this.data.organizationId,
+
       name: value.name,
+
       location: value.location,
+
       active: value.active,
+
       assignedUsers: 0
     };
 

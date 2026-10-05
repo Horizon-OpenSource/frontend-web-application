@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>{{ 'emissions.detail.title' | translate }}</h2>
+<mat-dialog-content>
+  <div class="detail-header">
+    <div>
+      <p class="eyebrow">{{ 'emissions.fields.sourceName' | translate }}</p>
+      <h3>{{ record.source.name }}</h3>
+    </div>
+    <mat-chip>{{ ('emissions.scopes.' + record.source.scope) | translate }}</mat-chip>
+  </div>
+
+  <dl class="detail-grid">
+    <div><dt>{{ 'emissions.fields.sourceType' | translate }}</dt><dd>{{ record.source.type }}</dd></div>
+    <div><dt>{{ 'emissions.fields.facility' | translate }}</dt><dd>{{ record.source.facilityName }}</dd></div>
+    <div><dt>{{ 'emissions.fields.quantity' | translate }}</dt><dd>{{ record.activityData.quantity }} {{ record.activityData.unit }}</dd></div>
+    <div><dt>{{ 'emissions.fields.period' | translate }}</dt><dd>{{ record.activityData.period }}</dd></div>
+    <div><dt>{{ 'emissions.fields.origin' | translate }}</dt><dd>{{ ('emissions.origins.' + record.activityData.origin) | translate }}</dd></div>
+    <div><dt>{{ 'emissions.fields.recordedAt' | translate }}</dt><dd>{{ record.activityData.recordedAt.slice(0, 10) }}</dd></div>
+  </dl>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{ 'emissions.actions.close' | translate }}</button>
+</mat-dialog-actions>

@@ -1,0 +1,31 @@
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 8px 0 24px;
+}
+
+.eyebrow, dt {
+  color: #607d8b;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+h3, dd {
+  margin: 0;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 24px;
+  min-width: min(560px, 75vw);
+}
+
+@media (max-width: 600px) {
+  .detail-grid { grid-template-columns: 1fr; min-width: 0; }
+}

@@ -11,6 +11,371 @@
     "reports": "Reports",
     "logout": "Log out"
   },
+  "organization": {
+    "title": "Organization",
+    "subtitle": "Manage your organization's information and structure.",
+    "tabs": {
+      "overview": "Overview",
+      "sites": "Sites",
+      "businessUnits": "Business Units"
+    },
+    "fields": {
+      "address": "Address",
+      "location": "Location",
+      "country": "Country",
+      "email": "Contact Email",
+      "phone": "Phone"
+    },
+    "summary": {
+      "activeUsers": "Active Users",
+      "sites": "Registered Sites",
+      "businessUnits": "Business Units"
+    },
+    "actions": {
+      "edit": "Edit organization",
+      "cancel": "Cancel",
+      "save": "Save changes",
+      "close": "Close"
+    },
+    "activity": {
+      "title": "Recent Activity"
+    },
+    "errors": {
+      "loadTitle": "Unable to load organization",
+      "loadDescription": "Verify that the EcoTrack Mock API is running."
+    },
+    "sections": {
+      "information": "Organization Information",
+      "summary": "Summary"
+    },
+    "quickActions": {
+      "title": "What do you want to manage?",
+      "edit": {
+        "title": "Organization information",
+        "description": "Review and update your organization's information."
+      },
+      "sites": {
+        "title": "Sites",
+        "description": "Manage the locations where your organization operates."
+      },
+      "businessUnits": {
+        "title": "Business units",
+        "description": "Manage your organization's operational areas."
+      }
+    },
+    "edit": {
+      "title": "Edit organization",
+      "description": "Update your organization's general information.",
+      "name": "Organization name",
+      "industry": "Industry",
+      "addressLine1": "Address line 1",
+      "addressLine2": "Address line 2",
+      "city": "City",
+      "state": "State / Province",
+      "postalCode": "Postal code",
+      "country": "Country",
+      "email": "Contact email",
+      "phone": "Phone",
+      "generalInformation": "General information",
+      "contactInformation": "Contact information"
+    },
+    "validation": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address."
+    },
+    "sites": {
+      "title": "Sites",
+      "description": "Manage the locations where your organization operates.",
+      "addTitle": "Add site",
+      "addAction": "Add site",
+      "name": "Site name",
+      "location": "Location",
+      "users": "Assigned users",
+      "status": "Status",
+      "active": "Active site",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "editTitle": "Edit site",
+      "editAction": "Save changes",
+      "deleteTitle": "Delete site",
+      "deleteMessage": "Are you sure you want to delete {{name}}?",
+      "deleteAction": "Delete",
+      "actions": "Actions"
+    },
+    "businessUnits": {
+      "title": "Business units",
+      "description": "Manage the operational areas of your organization.",
+      "addTitle": "Add business unit",
+      "addAction": "Add business unit",
+      "name": "Business unit",
+      "code": "Code",
+      "site": "Site",
+      "responsible": "Responsible",
+      "descriptionField": "Description",
+      "emissionSources": "Emission sources",
+      "status": "Status",
+      "active": "Active business unit",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "editTitle": "Edit business unit",
+      "editAction": "Save changes",
+      "deleteTitle": "Delete business unit",
+      "deleteMessage": "Are you sure you want to delete {{name}}?",
+      "deleteAction": "Delete",
+      "actions": "Actions"
+    },
+    "register": {
+      "title": "Register your organization",
+      "description": "Add your organization to start managing its environmental information.",
+      "organizationDetails": "Organization details",
+      "action": "Create organization"
+    },
+    "messages": {
+      "created": "Organization created successfully.",
+      "createError": "Unable to create organization.",
+      "updated": "Organization updated successfully.",
+      "updateError": "Unable to update organization.",
+      "siteCreated": "Site created successfully.",
+      "siteCreateError": "Unable to create site.",
+      "businessUnitCreated": "Business unit created successfully.",
+      "businessUnitCreateError": "Unable to create business unit.",
+      "siteUpdated": "Site updated successfully.",
+      "siteUpdateError": "Unable to update site.",
+      "siteDeleted": "Site deleted successfully.",
+      "siteDeleteError": "Unable to delete site.",
+      "businessUnitUpdated": "Business unit updated successfully.",
+      "businessUnitUpdateError": "Unable to update business unit.",
+      "businessUnitDeleted": "Business unit deleted successfully.",
+      "businessUnitDeleteError": "Unable to delete business unit."
+    }
+  },
+  "emissions": {
+    "eyebrow": "Emissions management",
+    "title": "Emission records",
+    "subtitle": "Register sources and activity data for your organization's carbon inventory.",
+    "recordsTitle": "Registered activity data",
+    "results": "{{count}} records found",
+    "summary": {
+      "total": "Total records"
+    },
+    "scopes": {
+      "SCOPE_1": "Scope 1",
+      "SCOPE_2": "Scope 2",
+      "SCOPE_3": "Scope 3"
+    },
+    "origins": {
+      "MANUAL": "Manual",
+      "CSV": "CSV import",
+      "API": "API"
+    },
+    "fields": {
+      "sourceName": "Emission source",
+      "sourceType": "Source type",
+      "facility": "Facility",
+      "scope": "Scope",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "activityData": "Activity data",
+      "period": "Period",
+      "origin": "Origin",
+      "recordedAt": "Recorded at",
+      "actions": "Actions"
+    },
+    "filters": {
+      "search": "Search records",
+      "scope": "Scope",
+      "period": "Period",
+      "source": "Source",
+      "all": "All"
+    },
+    "actions": {
+      "add": "Add emission",
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close",
+      "view": "View details",
+      "edit": "Edit",
+      "delete": "Delete",
+      "clearFilters": "Clear filters",
+      "resetDemo": "Reset demo data"
+    },
+    "form": {
+      "createTitle": "Register emission source and activity data",
+      "editTitle": "Edit emission record"
+    },
+    "detail": {
+      "title": "Emission record details"
+    },
+    "delete": {
+      "title": "Delete emission record",
+      "message": "Are you sure you want to delete {{name}}?",
+      "warning": "This record will no longer be included in the active environmental records."
+    },
+    "empty": {
+      "title": "No emission records found",
+      "message": "Change or clear the filters to see more results."
+    },
+    "validation": {
+      "required": "This field is required.",
+      "positive": "Enter a value greater than zero."
+    },
+    "messages": {
+      "created": "Emission record created.",
+      "updated": "Emission record updated.",
+      "deleted": "Emission record deleted.",
+      "reset": "Demo data restored.",
+      "operationError": "The operation could not be completed."
+    }
+  },
+  "carbonFootprint": {
+    "eyebrow": "Carbon footprint calculation",
+    "title": "Carbon footprint",
+    "subtitle": "Select the emission factor for each activity data record and calculate the footprint of a reporting period.",
+    "period": {
+      "label": "Reporting period"
+    },
+    "actions": {
+      "calculate": "Calculate footprint",
+      "clearResults": "Clear results",
+      "resetDemo": "Reset demo data",
+      "close": "Close"
+    },
+    "activity": {
+      "title": "Activity data and emission factors",
+      "subtitle": "{{count}} activity data records in this period",
+      "empty": "There is no activity data registered for this period."
+    },
+    "fields": {
+      "source": "Emission source",
+      "scope": "Scope",
+      "quantity": "Quantity",
+      "factor": "Emission factor",
+      "status": "Status",
+      "period": "Period",
+      "calculatedAt": "Calculated at",
+      "records": "Records",
+      "total": "Total"
+    },
+    "scopes": {
+      "SCOPE_1": "Scope 1",
+      "SCOPE_2": "Scope 2",
+      "SCOPE_3": "Scope 3"
+    },
+    "factor": {
+      "none": "No factor selected",
+      "select": "Select emission factor",
+      "perUnit": "{{value}} kgCO₂e per {{unit}}"
+    },
+    "status": {
+      "READY": "Ready",
+      "MISSING_FACTOR": "Missing factor",
+      "INCOMPATIBLE_FACTOR": "Incompatible factor",
+      "MISSING_INFORMATION": "Missing information"
+    },
+    "pending": {
+      "NO_ACTIVITY_DATA": "There is no activity data registered for this period.",
+      "MISSING_FACTOR": "No emission factor has been selected.",
+      "INCOMPATIBLE_FACTOR": "The selected emission factor is not compatible with this activity data.",
+      "MISSING_INFORMATION": "The quantity or the unit is missing."
+    },
+    "incomplete": {
+      "title": "The calculation could not be completed",
+      "message": "There is not enough information to calculate period {{period}}. Complete the following items and calculate again:"
+    },
+    "completed": {
+      "message": "Carbon footprint of period {{period}}:"
+    },
+    "results": {
+      "title": "Results for {{period}}",
+      "total": "Total footprint",
+      "noResults": "No results available for this period.",
+      "noScopeResults": "No results available for this scope in this period.",
+      "records": "{{count}} records"
+    },
+    "history": {
+      "title": "Calculation history",
+      "empty": "No previous calculations found."
+    },
+    "messages": {
+      "calculated": "Carbon footprint calculated.",
+      "cleared": "Results cleared.",
+      "reset": "Demo data restored."
+    }
+  },
+
+  "analytics": {
+    "units": { "tonnes": "t CO₂e" },
+    "scopes": { "scope1": "Scope 1", "scope2": "Scope 2", "scope3": "Scope 3" },
+    "filters": { "period": "Period", "allPeriods": "All periods" },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Carbon footprint overview for {{organization}}",
+      "totalEmissions": "Total emissions",
+      "periodCaption": "Calculated footprint for {{period}}",
+      "vsPrevious": "compared with {{period}}",
+      "missingData": "Some information has no calculated results for {{period}}:",
+      "emptyTitle": "No calculations for {{period}}",
+      "emptyMessage": "Calculate the carbon footprint for this period or choose another period."
+    },
+    "distribution": {
+      "title": "Emissions by scope",
+      "noData": "No calculated emissions"
+    },
+    "comparison": {
+      "title": "Compare periods",
+      "base": "Base period",
+      "target": "Comparison period",
+      "variation": "Variation",
+      "insufficientData": "There is not enough data to compare these periods. Choose two periods with calculated results."
+    },
+    "goals": {
+      "title": "Environmental goals",
+      "empty": "No environmental goals have been defined yet.",
+      "progressLabel": "{{name}}: {{value}} % progress",
+      "meta": "{{progress}} % complete, due {{date}}",
+      "status": { "active": "Active", "achieved": "Achieved", "atRisk": "At risk" }
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Generate, review and download environmental reports for {{organization}}",
+      "historyTitle": "Report history",
+      "results": "{{count}} reports found",
+      "types": { "consolidated": "Consolidated report", "period": "Period report" },
+      "columns": {
+        "report": "Report",
+        "period": "Period",
+        "generatedAt": "Generated on",
+        "total": "Total emissions",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": { "available": "Available", "unavailable": "Unavailable" },
+      "actions": {
+        "generate": "Generate report",
+        "download": "Download CSV",
+        "resetDemo": "Reset demo data",
+        "cancel": "Cancel",
+        "close": "Close"
+      },
+      "form": {
+        "title": "Generate environmental report",
+        "type": "Report type",
+        "periodHint": "Includes the emissions by scope calculated for the selected period.",
+        "consolidatedHint": "Includes every period with calculated results and the organization's environmental goals."
+      },
+      "empty": {
+        "title": "No reports found",
+        "message": "Generate a report or choose another period."
+      },
+      "messages": {
+        "generated": "Report generated.",
+        "insufficientData": "The report was not generated: {{period}} has no calculated environmental data.",
+        "downloaded": "Report downloaded.",
+        "unavailable": "This report is not available for download.",
+        "reset": "Demo data restored."
+      }
+    }
+  },
   "footer": {
     "copyright": "2026 Horizon. All rights reserved."
   }

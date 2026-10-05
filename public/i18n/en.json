@@ -282,6 +282,80 @@
       "reset": "Demo data restored."
     }
   },
+
+  "analytics": {
+    "units": { "tonnes": "t CO₂e" },
+    "scopes": { "scope1": "Scope 1", "scope2": "Scope 2", "scope3": "Scope 3" },
+    "filters": { "period": "Period", "allPeriods": "All periods" },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Carbon footprint overview for {{organization}}",
+      "totalEmissions": "Total emissions",
+      "periodCaption": "Calculated footprint for {{period}}",
+      "vsPrevious": "compared with {{period}}",
+      "missingData": "Some information has no calculated results for {{period}}:",
+      "emptyTitle": "No calculations for {{period}}",
+      "emptyMessage": "Calculate the carbon footprint for this period or choose another period."
+    },
+    "distribution": {
+      "title": "Emissions by scope",
+      "noData": "No calculated emissions"
+    },
+    "comparison": {
+      "title": "Compare periods",
+      "base": "Base period",
+      "target": "Comparison period",
+      "variation": "Variation",
+      "insufficientData": "There is not enough data to compare these periods. Choose two periods with calculated results."
+    },
+    "goals": {
+      "title": "Environmental goals",
+      "empty": "No environmental goals have been defined yet.",
+      "progressLabel": "{{name}}: {{value}} % progress",
+      "meta": "{{progress}} % complete, due {{date}}",
+      "status": { "active": "Active", "achieved": "Achieved", "atRisk": "At risk" }
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Generate, review and download environmental reports for {{organization}}",
+      "historyTitle": "Report history",
+      "results": "{{count}} reports found",
+      "types": { "consolidated": "Consolidated report", "period": "Period report" },
+      "columns": {
+        "report": "Report",
+        "period": "Period",
+        "generatedAt": "Generated on",
+        "total": "Total emissions",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": { "available": "Available", "unavailable": "Unavailable" },
+      "actions": {
+        "generate": "Generate report",
+        "download": "Download CSV",
+        "resetDemo": "Reset demo data",
+        "cancel": "Cancel",
+        "close": "Close"
+      },
+      "form": {
+        "title": "Generate environmental report",
+        "type": "Report type",
+        "periodHint": "Includes the emissions by scope calculated for the selected period.",
+        "consolidatedHint": "Includes every period with calculated results and the organization's environmental goals."
+      },
+      "empty": {
+        "title": "No reports found",
+        "message": "Generate a report or choose another period."
+      },
+      "messages": {
+        "generated": "Report generated.",
+        "insufficientData": "The report was not generated: {{period}} has no calculated environmental data.",
+        "downloaded": "Report downloaded.",
+        "unavailable": "This report is not available for download.",
+        "reset": "Demo data restored."
+      }
+    }
+  },
   "footer": {
     "copyright": "2026 Horizon. All rights reserved."
   }

@@ -1,0 +1,141 @@
+.page-shell {
+  display: grid;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  color: #263238;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: #455a64;
+}
+
+.period-field {
+  width: 200px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 24px;
+}
+
+/* Shared card look for this page and its child components. */
+:host ::ng-deep .card {
+  padding: 24px;
+  border: 1px solid #e2e8ea;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+:host ::ng-deep .card h2 {
+  margin: 0;
+  color: #263238;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.total-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.total-value {
+  margin: 16px 0 4px;
+  color: #2e7d32;
+  font-size: 2.75rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.unit {
+  color: #455a64;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.total-period {
+  margin: 0;
+  color: #455a64;
+}
+
+.variation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 16px 0 0;
+  font-weight: 500;
+}
+
+.variation.increase {
+  color: #c62828;
+}
+
+.variation.decrease {
+  color: #2e7d32;
+}
+
+.notice {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+
+.notice.warning {
+  background: #fff3e0;
+  color: #6d3a00;
+}
+
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.empty-state mat-icon {
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  color: #388e3c;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #455a64;
+}
+
+@media (max-width: 960px) {
+  .page-shell {
+    padding: 16px;
+  }
+
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .period-field {
+    width: 100%;
+  }
+}

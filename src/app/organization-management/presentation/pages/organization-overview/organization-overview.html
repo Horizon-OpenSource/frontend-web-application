@@ -1,0 +1,286 @@
+<section class="overview">
+
+  @if (store.loading()) {
+
+    <div class="loading">
+      <mat-spinner diameter="48"/>
+    </div>
+
+  } @else if (store.error()) {
+
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <mat-icon>error_outline</mat-icon>
+
+        {{ 'organization.errors.loadDescription' | translate }}
+      </mat-card-content>
+    </mat-card>
+
+  } @else if (store.organization(); as organization) {
+
+    <!-- Organization information -->
+    <mat-card appearance="outlined">
+
+      <mat-card-header>
+        <mat-icon mat-card-avatar>domain</mat-icon>
+
+        <mat-card-title>
+          {{ organization.name }}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ organization.industry }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+
+        <mat-list>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>location_on</mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.fields.location' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ organization.city }}, {{ organization.country }}
+            </span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>mail</mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.fields.email' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ organization.contactEmail }}
+            </span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-icon matListItemIcon>phone</mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.fields.phone' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ organization.phone }}
+            </span>
+          </mat-list-item>
+
+        </mat-list>
+
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+
+        <a
+          mat-flat-button
+          routerLink="/organization/edit">
+
+          <mat-icon>edit</mat-icon>
+
+          {{ 'organization.actions.edit' | translate }}
+
+        </a>
+
+      </mat-card-actions>
+
+    </mat-card>
+
+
+    <!-- Quick actions -->
+    <section>
+
+      <h2>
+        {{ 'organization.quickActions.title' | translate }}
+      </h2>
+
+      <mat-card appearance="outlined">
+
+        <mat-nav-list>
+
+          <a
+            mat-list-item
+            routerLink="/organization/edit">
+
+            <mat-icon matListItemIcon>
+              edit
+            </mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.quickActions.edit.title' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ 'organization.quickActions.edit.description' | translate }}
+            </span>
+
+          </a>
+
+          <mat-divider/>
+
+          <a
+            mat-list-item
+            routerLink="/organization/sites">
+
+            <mat-icon matListItemIcon>
+              location_city
+            </mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.quickActions.sites.title' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ 'organization.quickActions.sites.description' | translate }}
+            </span>
+
+          </a>
+
+          <mat-divider/>
+
+          <a
+            mat-list-item
+            routerLink="/organization/business-units">
+
+            <mat-icon matListItemIcon>
+              account_tree
+            </mat-icon>
+
+            <span matListItemTitle>
+              {{ 'organization.quickActions.businessUnits.title' | translate }}
+            </span>
+
+            <span matListItemLine>
+              {{ 'organization.quickActions.businessUnits.description' | translate }}
+            </span>
+
+          </a>
+
+        </mat-nav-list>
+
+      </mat-card>
+
+    </section>
+
+
+    <!-- Summary -->
+    <section>
+
+      <h2>
+        {{ 'organization.sections.summary' | translate }}
+      </h2>
+
+      <div class="summary">
+
+        <mat-card appearance="outlined">
+          <mat-card-header>
+
+            <mat-icon mat-card-avatar>
+              group
+            </mat-icon>
+
+            <mat-card-title>
+              {{ organization.activeUsers }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              {{ 'organization.summary.activeUsers' | translate }}
+            </mat-card-subtitle>
+
+          </mat-card-header>
+        </mat-card>
+
+
+        <mat-card appearance="outlined">
+          <mat-card-header>
+
+            <mat-icon mat-card-avatar>
+              location_city
+            </mat-icon>
+
+            <mat-card-title>
+              {{ store.registeredSites() }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              {{ 'organization.summary.sites' | translate }}
+            </mat-card-subtitle>
+
+          </mat-card-header>
+        </mat-card>
+
+
+        <mat-card appearance="outlined">
+          <mat-card-header>
+
+            <mat-icon mat-card-avatar>
+              account_tree
+            </mat-icon>
+
+            <mat-card-title>
+              {{ store.registeredBusinessUnits() }}
+            </mat-card-title>
+
+            <mat-card-subtitle>
+              {{ 'organization.summary.businessUnits' | translate }}
+            </mat-card-subtitle>
+
+          </mat-card-header>
+        </mat-card>
+
+      </div>
+
+    </section>
+
+
+    <!-- Recent activity -->
+    <section>
+
+      <h2>
+        {{ 'organization.activity.title' | translate }}
+      </h2>
+
+      <mat-card appearance="outlined">
+
+        <mat-list>
+
+          @for (activity of store.activities(); track activity.id) {
+
+            <mat-list-item>
+
+              <mat-icon matListItemIcon>
+                history
+              </mat-icon>
+
+              <span matListItemTitle>
+                {{ activity.description }}
+              </span>
+
+              <span matListItemLine>
+                {{ activity.occurredAt | date:'medium' }}
+              </span>
+
+            </mat-list-item>
+
+            @if (!$last) {
+              <mat-divider/>
+            }
+
+          }
+
+        </mat-list>
+
+      </mat-card>
+
+    </section>
+
+  }
+
+</section>

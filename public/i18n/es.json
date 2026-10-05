@@ -11,6 +11,56 @@
     "reports": "Reportes",
     "logout": "Salir"
   },
+  "organization": {
+    "title": "Organización",
+    "subtitle": "Administra la información y estructura de tu organización.",
+    "tabs": {
+      "overview": "Resumen",
+      "users": "Usuarios",
+      "sites": "Sedes y permisos",
+      "businessUnits": "Unidades de negocio"
+    },
+    "fields": {
+      "address": "Dirección",
+      "country": "País",
+      "email": "Correo de contacto",
+      "phone": "Teléfono"
+    },
+    "summary": {
+      "activeUsers": "Usuarios activos",
+      "sites": "Sedes registradas",
+      "businessUnits": "Unidades de negocio"
+    },
+    "actions": {
+      "edit": "Editar organización"
+    },
+    "activity": {
+      "title": "Actividad reciente"
+    },
+    "errors": {
+      "loadTitle": "No se pudo cargar la organización",
+      "loadDescription": "Verifica que el Mock API de EcoTrack se encuentre ejecutándose."
+    },
+    "sections": {
+      "information": "Información de la organización",
+      "summary": "Resumen"
+    },
+    "quickActions": {
+      "title": "¿Qué deseas administrar?",
+      "edit": {
+        "title": "Información de la organización",
+        "description": "Consulta y actualiza los datos de tu organización."
+      },
+      "sites": {
+        "title": "Sedes",
+        "description": "Administra los lugares donde opera tu organización."
+      },
+      "businessUnits": {
+        "title": "Unidades de negocio",
+        "description": "Administra las áreas operativas de tu organización."
+      }
+    }
+  },
   "footer": {
     "copyright": "2026 Horizon. Todos los derechos reservados."
   }

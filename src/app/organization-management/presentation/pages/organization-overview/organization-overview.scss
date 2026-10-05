@@ -1,0 +1,27 @@
+.overview {
+  display: grid;
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.overview h2 {
+  margin: 0 0 12px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.loading {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 768px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+}

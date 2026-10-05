@@ -1,0 +1,53 @@
+<section class="organization-shell">
+
+  <div class="page-title">
+    <h1>{{ 'organization.title' | translate }}</h1>
+    <p>{{ 'organization.subtitle' | translate }}</p>
+  </div>
+
+  <nav
+    mat-tab-nav-bar
+    [tabPanel]="tabPanel"
+    aria-label="Organization navigation">
+
+    <a
+      mat-tab-link
+      routerLink="/organization"
+      routerLinkActive
+      #overviewLink="routerLinkActive"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [active]="overviewLink.isActive">
+      {{ 'organization.tabs.overview' | translate }}
+    </a>
+
+    <a
+      mat-tab-link
+      [disabled]="true">
+      {{ 'organization.tabs.users' | translate }}
+    </a>
+
+    <a
+      mat-tab-link
+      routerLink="/organization/sites"
+      routerLinkActive
+      #sitesLink="routerLinkActive"
+      [active]="sitesLink.isActive">
+      {{ 'organization.tabs.sites' | translate }}
+    </a>
+
+    <a
+      mat-tab-link
+      routerLink="/organization/business-units"
+      routerLinkActive
+      #unitsLink="routerLinkActive"
+      [active]="unitsLink.isActive">
+      {{ 'organization.tabs.businessUnits' | translate }}
+    </a>
+
+  </nav>
+
+  <mat-tab-nav-panel #tabPanel>
+    <router-outlet />
+  </mat-tab-nav-panel>
+
+</section>

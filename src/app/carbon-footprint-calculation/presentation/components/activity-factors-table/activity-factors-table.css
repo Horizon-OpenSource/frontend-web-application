@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+}
+th {
+  color: #455a64;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+td {
+  color: #263238;
+}
+td strong,
+td span.sub {
+  display: block;
+}
+td strong + span {
+  color: #546e7a;
+  display: block;
+  font-size: 12px;
+  margin-top: 3px;
+}
+.factor-field {
+  min-width: 280px;
+  width: 100%;
+}
+.scope-badge {
+  border-radius: 16px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+}
+.scope-badge[data-scope='SCOPE_1'] {
+  background: #fff3e0;
+  color: #a33b00;
+}
+.scope-badge[data-scope='SCOPE_2'] {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+.scope-badge[data-scope='SCOPE_3'] {
+  background: #f3e5f5;
+  color: #4a148c;
+}
+.status {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 6px;
+}
+.status mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+.status.ready {
+  color: #1b5e20;
+}
+.status.pending {
+  color: #8a4b00;
+}

@@ -45,6 +45,46 @@
       "progressLabel": "{{name}}: {{value}} % de avance",
       "meta": "{{progress}} % completado, vence el {{date}}",
       "status": { "active": "Activa", "achieved": "Cumplida", "atRisk": "En riesgo" }
+    },
+    "reports": {
+      "title": "Reportes",
+      "subtitle": "Genera, revisa y descarga los reportes ambientales de {{organization}}",
+      "historyTitle": "Historial de reportes",
+      "results": "{{count}} reportes encontrados",
+      "types": { "consolidated": "Reporte consolidado", "period": "Reporte por periodo" },
+      "columns": {
+        "report": "Reporte",
+        "period": "Periodo",
+        "generatedAt": "Generado el",
+        "total": "Emisiones totales",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": { "available": "Disponible", "unavailable": "No disponible" },
+      "actions": {
+        "generate": "Generar reporte",
+        "download": "Descargar CSV",
+        "resetDemo": "Restablecer datos de demostración",
+        "cancel": "Cancelar",
+        "close": "Cerrar"
+      },
+      "form": {
+        "title": "Generar reporte ambiental",
+        "type": "Tipo de reporte",
+        "periodHint": "Incluye las emisiones por alcance calculadas para el periodo seleccionado.",
+        "consolidatedHint": "Incluye todos los periodos con resultados calculados y las metas ambientales de la organización."
+      },
+      "empty": {
+        "title": "No se encontraron reportes",
+        "message": "Genera un reporte o elige otro periodo."
+      },
+      "messages": {
+        "generated": "Reporte generado.",
+        "insufficientData": "No se generó el reporte: {{period}} no tiene datos ambientales calculados.",
+        "downloaded": "Reporte descargado.",
+        "unavailable": "Este reporte no está disponible para descargar.",
+        "reset": "Datos de demostración restablecidos."
+      }
     }
   }
 }

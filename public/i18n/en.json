@@ -84,6 +84,19 @@
       "edit": "Edit organization",
       "cancel": "Cancel",
       "save": "Save changes"
+    },
+    "sites": {
+      "title": "Sites",
+      "description": "Manage the locations where your organization operates.",
+      "addTitle": "Add site",
+      "addAction": "Add site",
+      "name": "Site name",
+      "location": "Location",
+      "users": "Assigned users",
+      "status": "Status",
+      "active": "Active site",
+      "statusActive": "Active",
+      "statusInactive": "Inactive"
     }
   },
   "footer": {

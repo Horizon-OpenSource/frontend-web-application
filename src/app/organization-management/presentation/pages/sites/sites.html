@@ -1,0 +1,139 @@
+<section class="sites-page">
+
+  <header class="page-header">
+
+    <div>
+      <h2>
+        {{ 'organization.sites.title' | translate }}
+      </h2>
+
+      <p>
+        {{ 'organization.sites.description' | translate }}
+      </p>
+    </div>
+
+    <button
+      mat-flat-button
+      type="button"
+      (click)="openAddSiteDialog()">
+
+      <mat-icon>add</mat-icon>
+
+      {{ 'organization.sites.addAction' | translate }}
+
+    </button>
+
+  </header>
+
+
+  @if (store.loading()) {
+
+    <div class="loading">
+      <mat-spinner diameter="48"/>
+    </div>
+
+  } @else {
+
+    <mat-card appearance="outlined">
+
+      <div class="table-container">
+
+        <table
+          mat-table
+          [dataSource]="store.sites()">
+
+          <!-- Name -->
+          <ng-container matColumnDef="name">
+
+            <th mat-header-cell *matHeaderCellDef>
+              {{ 'organization.sites.name' | translate }}
+            </th>
+
+            <td mat-cell *matCellDef="let site">
+              {{ site.name }}
+            </td>
+
+          </ng-container>
+
+
+          <!-- Location -->
+          <ng-container matColumnDef="location">
+
+            <th mat-header-cell *matHeaderCellDef>
+              {{ 'organization.sites.location' | translate }}
+            </th>
+
+            <td mat-cell *matCellDef="let site">
+
+              <mat-icon class="cell-icon">
+                location_on
+              </mat-icon>
+
+              {{ site.location }}
+
+            </td>
+
+          </ng-container>
+
+
+          <!-- Users -->
+          <ng-container matColumnDef="assignedUsers">
+
+            <th mat-header-cell *matHeaderCellDef>
+              {{ 'organization.sites.users' | translate }}
+            </th>
+
+            <td mat-cell *matCellDef="let site">
+              {{ site.assignedUsers }}
+            </td>
+
+          </ng-container>
+
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+
+            <th mat-header-cell *matHeaderCellDef>
+              {{ 'organization.sites.status' | translate }}
+            </th>
+
+            <td mat-cell *matCellDef="let site">
+
+              @if (site.active) {
+
+                <mat-chip>
+                  {{ 'organization.sites.statusActive' | translate }}
+                </mat-chip>
+
+              } @else {
+
+                <mat-chip>
+                  {{ 'organization.sites.statusInactive' | translate }}
+                </mat-chip>
+
+              }
+
+            </td>
+
+          </ng-container>
+
+
+          <tr
+            mat-header-row
+            *matHeaderRowDef="displayedColumns">
+          </tr>
+
+          <tr
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+
+        </table>
+
+      </div>
+
+    </mat-card>
+
+  }
+
+</section>

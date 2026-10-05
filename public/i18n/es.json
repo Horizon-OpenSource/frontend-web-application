@@ -84,6 +84,19 @@
       "edit": "Editar organización",
       "cancel": "Cancelar",
       "save": "Guardar cambios"
+    },
+    "sites": {
+      "title": "Sedes",
+      "description": "Administra los lugares donde opera tu organización.",
+      "addTitle": "Registrar sede",
+      "addAction": "Agregar sede",
+      "name": "Nombre de la sede",
+      "location": "Ubicación",
+      "users": "Usuarios asignados",
+      "status": "Estado",
+      "active": "Sede activa",
+      "statusActive": "Activa",
+      "statusInactive": "Inactiva"
     }
   },
   "footer": {

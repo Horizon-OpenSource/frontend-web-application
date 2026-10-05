@@ -86,4 +86,36 @@ export class OrganizationStore {
         })
       );
   }
+
+  loadSites(organizationId: number = 1): void {
+    this.loading.set(true);
+    this.error.set(false);
+
+    this.organizationApi
+      .getSites(organizationId)
+      .subscribe({
+        next: sites => {
+          this.sites.set(sites);
+          this.loading.set(false);
+        },
+
+        error: () => {
+          this.error.set(true);
+          this.loading.set(false);
+        }
+      });
+  }
+
+  createSite(site: Omit<Site, 'id'>): void {
+    this.organizationApi
+      .createSite(site)
+      .subscribe({
+        next: createdSite => {
+          this.sites.update(sites => [
+            ...sites,
+            createdSite
+          ]);
+        }
+      });
+  }
 }

@@ -51,11 +51,11 @@ export class OrganizationApi {
 
   updateOrganization(
     id: number,
-    organization: Organization
+    changes: Partial<Organization>
   ): Observable<Organization> {
-    return this.http.put<Organization>(
+    return this.http.patch<Organization>(
       `${this.baseUrl}/organizations/${id}`,
-      organization
+      changes
     );
   }
 

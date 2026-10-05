@@ -59,6 +59,31 @@
         "title": "Unidades de negocio",
         "description": "Administra las áreas operativas de tu organización."
       }
+    },
+    "edit": {
+      "title": "Editar organización",
+      "description": "Actualiza la información general de tu organización.",
+      "name": "Nombre de la organización",
+      "industry": "Industria",
+      "addressLine1": "Dirección principal",
+      "addressLine2": "Dirección adicional",
+      "city": "Ciudad",
+      "state": "Departamento / Provincia",
+      "postalCode": "Código postal",
+      "country": "País",
+      "email": "Correo de contacto",
+      "phone": "Teléfono",
+      "generalInformation": "Información general",
+      "contactInformation": "Información de contacto"
+    },
+    "validation": {
+      "required": "Este campo es obligatorio.",
+      "email": "Ingresa un correo electrónico válido."
+    },
+    "actions": {
+      "edit": "Editar organización",
+      "cancel": "Cancelar",
+      "save": "Guardar cambios"
     }
   },
   "footer": {

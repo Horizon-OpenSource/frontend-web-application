@@ -1,20 +1,21 @@
 import { Routes } from '@angular/router';
 
+import { OrganizationShell } from './organization-management/presentation/pages/organization-shell/organization-shell';
+import { OrganizationOverview } from './organization-management/presentation/pages/organization-overview/organization-overview';
+import { OrganizationEdit } from './organization-management/presentation/pages/organization-edit/organization-edit';
+
 export const routes: Routes = [
   {
     path: 'organization',
-    loadComponent: () =>
-      import(
-        './organization-management/presentation/pages/organization-shell/organization-shell'
-        ).then(m => m.OrganizationShell),
-
+    component: OrganizationShell,
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import(
-            './organization-management/presentation/pages/organization-overview/organization-overview'
-            ).then(m => m.OrganizationOverview)
+        component: OrganizationOverview
+      },
+      {
+        path: 'edit',
+        component: OrganizationEdit
       }
     ]
   },

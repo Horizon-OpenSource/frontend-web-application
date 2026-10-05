@@ -59,6 +59,31 @@
         "title": "Business units",
         "description": "Manage your organization's operational areas."
       }
+    },
+    "edit": {
+      "title": "Edit organization",
+      "description": "Update your organization's general information.",
+      "name": "Organization name",
+      "industry": "Industry",
+      "addressLine1": "Address line 1",
+      "addressLine2": "Address line 2",
+      "city": "City",
+      "state": "State / Province",
+      "postalCode": "Postal code",
+      "country": "Country",
+      "email": "Contact email",
+      "phone": "Phone",
+      "generalInformation": "General information",
+      "contactInformation": "Contact information"
+    },
+    "validation": {
+      "required": "This field is required.",
+      "email": "Enter a valid email address."
+    },
+    "actions": {
+      "edit": "Edit organization",
+      "cancel": "Cancel",
+      "save": "Save changes"
     }
   },
   "footer": {

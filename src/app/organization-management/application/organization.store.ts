@@ -5,7 +5,7 @@ import {
   signal
 } from '@angular/core';
 
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin, tap } from 'rxjs';
 
 import { OrganizationApi } from '../infrastructure/organization-api';
 
@@ -72,5 +72,18 @@ export class OrganizationStore {
       }
 
     });
+  }
+
+  updateOrganization(
+    id: number,
+    changes: Partial<Organization>
+  ): Observable<Organization> {
+    return this.organizationApi
+      .updateOrganization(id, changes)
+      .pipe(
+        tap(updatedOrganization => {
+          this.organization.set(updatedOrganization);
+        })
+      );
   }
 }

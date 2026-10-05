@@ -1,16 +1,18 @@
 .organization-shell {
-  max-width: 1200px;
+  max-width: 1120px;
   margin-inline: auto;
 }
 
-.page-title {
-  margin-bottom: 24px;
+header {
+  margin-bottom: 20px;
 }
 
-.page-title h1 {
-  margin-bottom: 4px;
-}
-
-.page-title p {
+header h1 {
   margin: 0;
+  font-size: 1.75rem;
+  font-weight: 500;
+}
+
+header p {
+  margin: 4px 0 0;
 }

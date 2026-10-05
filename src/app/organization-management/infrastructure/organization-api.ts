@@ -103,4 +103,54 @@ export class OrganizationApi {
       businessUnit
     );
   }
+
+  updateSite(
+    id: number,
+    changes: Partial<Site>
+  ): Observable<Site> {
+
+    return this.http.patch<Site>(
+      `${this.baseUrl}/sites/${id}`,
+      changes
+    );
+  }
+
+  deleteSite(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.baseUrl}/sites/${id}`
+    );
+  }
+
+  updateBusinessUnit(
+    id: number,
+    changes: Partial<BusinessUnit>
+  ): Observable<BusinessUnit> {
+
+    return this.http.patch<BusinessUnit>(
+      `${this.baseUrl}/business-units/${id}`,
+      changes
+    );
+  }
+
+  deleteBusinessUnit(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.baseUrl}/business-units/${id}`
+    );
+  }
+
+  createActivity(
+    activity: Omit<OrganizationActivity, 'id'>
+  ): Observable<OrganizationActivity> {
+
+    return this.http.post<OrganizationActivity>(
+      `${this.baseUrl}/organization-activities`,
+      activity
+    );
+  }
 }

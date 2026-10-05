@@ -129,6 +129,59 @@
 
           </ng-container>
 
+          <ng-container matColumnDef="actions">
+
+            <th
+              mat-header-cell
+              *matHeaderCellDef>
+
+              {{
+                'organization.businessUnits.actions'
+                  | translate
+              }}
+
+            </th>
+
+
+            <td
+              mat-cell
+              *matCellDef="let unit"
+              class="actions-cell">
+
+              <button
+                mat-icon-button
+                type="button"
+                (click)="openEditBusinessUnitDialog(unit)"
+                [attr.aria-label]="
+          'organization.businessUnits.editAction'
+            | translate
+        ">
+
+                <mat-icon>
+                  edit
+                </mat-icon>
+
+              </button>
+
+
+              <button
+                mat-icon-button
+                type="button"
+                (click)="confirmDeleteBusinessUnit(unit)"
+                [attr.aria-label]="
+          'organization.businessUnits.deleteAction'
+            | translate
+        ">
+
+                <mat-icon>
+                  delete
+                </mat-icon>
+
+              </button>
+
+            </td>
+
+          </ng-container>
 
           <tr
             mat-header-row

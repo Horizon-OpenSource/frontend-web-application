@@ -1,5 +1,13 @@
 <h2 mat-dialog-title>
-  {{ 'organization.businessUnits.addTitle' | translate }}
+
+  {{
+    (
+      isEdit
+        ? 'organization.businessUnits.editTitle'
+        : 'organization.businessUnits.addTitle'
+    ) | translate
+  }}
+
 </h2>
 
 <mat-dialog-content>
@@ -130,7 +138,13 @@
     type="submit"
     form="business-unit-form">
 
-    {{ 'organization.businessUnits.addAction' | translate }}
+    {{
+      (
+        isEdit
+          ? 'organization.businessUnits.editAction'
+          : 'organization.businessUnits.addAction'
+      ) | translate
+    }}
 
   </button>
 

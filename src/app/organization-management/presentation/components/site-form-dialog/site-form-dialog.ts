@@ -16,21 +16,42 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatButtonModule
+} from '@angular/material/button';
 
-import { TranslatePipe } from '@ngx-translate/core';
+import {
+  MatFormFieldModule
+} from '@angular/material/form-field';
 
-import { Site } from '../../../domain/model/site.entity';
+import {
+  MatInputModule
+} from '@angular/material/input';
+
+import {
+  MatSlideToggleModule
+} from '@angular/material/slide-toggle';
+
+import {
+  TranslatePipe
+} from '@ngx-translate/core';
+
+import {
+  Site
+} from '../../../domain/model/site.entity';
+
 
 interface SiteFormDialogData {
+
   organizationId: number;
+
+  site?: Site;
 }
 
+
 @Component({
-  selector: 'app-site-form-dialog',
+  selector:
+    'app-site-form-dialog',
 
   imports: [
     ReactiveFormsModule,
@@ -42,10 +63,14 @@ interface SiteFormDialogData {
     TranslatePipe
   ],
 
-  templateUrl: './site-form-dialog.html',
-  styleUrl: './site-form-dialog.scss',
+  templateUrl:
+    './site-form-dialog.html',
 
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl:
+    './site-form-dialog.scss',
+
+  changeDetection:
+  ChangeDetectionStrategy.OnPush
 })
 export class SiteFormDialog {
 
@@ -53,45 +78,82 @@ export class SiteFormDialog {
     inject(FormBuilder);
 
   private readonly dialogRef =
-    inject(MatDialogRef<SiteFormDialog>);
+    inject(
+      MatDialogRef<SiteFormDialog>
+    );
 
   private readonly data =
-    inject<SiteFormDialogData>(MAT_DIALOG_DATA);
+    inject<SiteFormDialogData>(
+      MAT_DIALOG_DATA
+    );
+
+
+  protected readonly isEdit =
+    !!this.data.site;
+
 
   protected readonly form =
     this.formBuilder.nonNullable.group({
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      active: [true]
+
+      name: [
+        this.data.site?.name ?? '',
+        Validators.required
+      ],
+
+      location: [
+        this.data.site?.location ?? '',
+        Validators.required
+      ],
+
+      active: [
+        this.data.site?.active ?? true
+      ]
+
     });
+
 
   protected save(): void {
 
     if (this.form.invalid) {
+
       this.form.markAllAsTouched();
+
       return;
     }
 
-    const value = this.form.getRawValue();
 
-    const site: Omit<Site, 'id'> = {
+    const value =
+      this.form.getRawValue();
+
+
+    const site:
+      Omit<Site, 'id'> = {
 
       organizationId:
       this.data.organizationId,
 
-      name: value.name,
+      name:
+      value.name,
 
-      location: value.location,
+      location:
+      value.location,
 
-      active: value.active,
+      active:
+      value.active,
 
-      assignedUsers: 0
+      assignedUsers:
+        this.data.site
+          ?.assignedUsers
+        ?? 0
     };
+
 
     this.dialogRef.close(site);
   }
 
+
   protected cancel(): void {
+
     this.dialogRef.close();
   }
 }

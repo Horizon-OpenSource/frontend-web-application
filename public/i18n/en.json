@@ -94,7 +94,13 @@
       "status": "Status",
       "active": "Active site",
       "statusActive": "Active",
-      "statusInactive": "Inactive"
+      "statusInactive": "Inactive",
+      "editTitle": "Edit site",
+      "editAction": "Save changes",
+      "deleteTitle": "Delete site",
+      "deleteMessage": "Are you sure you want to delete {{name}}?",
+      "deleteAction": "Delete",
+      "actions": "Actions"
     },
     "businessUnits": {
       "title": "Business units",
@@ -110,7 +116,13 @@
       "status": "Status",
       "active": "Active business unit",
       "statusActive": "Active",
-      "statusInactive": "Inactive"
+      "statusInactive": "Inactive",
+      "editTitle": "Edit business unit",
+      "editAction": "Save changes",
+      "deleteTitle": "Delete business unit",
+      "deleteMessage": "Are you sure you want to delete {{name}}?",
+      "deleteAction": "Delete",
+      "actions": "Actions"
     },
     "register": {
       "title": "Register your organization",
@@ -126,7 +138,15 @@
       "siteCreated": "Site created successfully.",
       "siteCreateError": "Unable to create site.",
       "businessUnitCreated": "Business unit created successfully.",
-      "businessUnitCreateError": "Unable to create business unit."
+      "businessUnitCreateError": "Unable to create business unit.",
+      "siteUpdated": "Site updated successfully.",
+      "siteUpdateError": "Unable to update site.",
+      "siteDeleted": "Site deleted successfully.",
+      "siteDeleteError": "Unable to delete site.",
+      "businessUnitUpdated": "Business unit updated successfully.",
+      "businessUnitUpdateError": "Unable to update business unit.",
+      "businessUnitDeleted": "Business unit deleted successfully.",
+      "businessUnitDeleteError": "Unable to delete business unit."
     }
   },
   "emissions": {

@@ -94,7 +94,13 @@
       "status": "Estado",
       "active": "Sede activa",
       "statusActive": "Activa",
-      "statusInactive": "Inactiva"
+      "statusInactive": "Inactiva",
+      "editTitle": "Editar sede",
+      "editAction": "Guardar cambios",
+      "deleteTitle": "Eliminar sede",
+      "deleteMessage": "¿Seguro que deseas eliminar {{name}}?",
+      "deleteAction": "Eliminar",
+      "actions": "Acciones"
     },
     "businessUnits": {
       "title": "Unidades de negocio",
@@ -110,7 +116,13 @@
       "status": "Estado",
       "active": "Unidad de negocio activa",
       "statusActive": "Activa",
-      "statusInactive": "Inactiva"
+      "statusInactive": "Inactiva",
+      "editTitle": "Editar unidad de negocio",
+      "editAction": "Guardar cambios",
+      "deleteTitle": "Eliminar unidad de negocio",
+      "deleteMessage": "¿Seguro que deseas eliminar {{name}}?",
+      "deleteAction": "Eliminar",
+      "actions": "Acciones"
     },
     "register": {
       "title": "Registra tu organización",
@@ -126,7 +138,15 @@
       "siteCreated": "Sede creada correctamente.",
       "siteCreateError": "No se pudo crear la sede.",
       "businessUnitCreated": "Unidad de negocio creada correctamente.",
-      "businessUnitCreateError": "No se pudo crear la unidad de negocio."
+      "businessUnitCreateError": "No se pudo crear la unidad de negocio.",
+      "siteUpdated": "Sede actualizada correctamente.",
+      "siteUpdateError": "No se pudo actualizar la sede.",
+      "siteDeleted": "Sede eliminada correctamente.",
+      "siteDeleteError": "No se pudo eliminar la sede.",
+      "businessUnitUpdated": "Unidad de negocio actualizada correctamente.",
+      "businessUnitUpdateError": "No se pudo actualizar la unidad de negocio.",
+      "businessUnitDeleted": "Unidad de negocio eliminada correctamente.",
+      "businessUnitDeleteError": "No se pudo eliminar la unidad de negocio."
     }
   },
   "emissions": {

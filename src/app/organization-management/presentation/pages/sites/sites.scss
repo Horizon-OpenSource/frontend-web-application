@@ -38,6 +38,10 @@ table {
   place-items: center;
 }
 
+.actions-cell {
+  white-space: nowrap;
+}
+
 @media (max-width: 600px) {
   .page-header {
     align-items: flex-start;

@@ -26,6 +26,10 @@ import {
   BusinessUnitFormDialog
 } from '../../components/business-unit-form-dialog/business-unit-form-dialog';
 
+import {
+  DeleteConfirmationDialog
+} from '../../components/delete-confirmation-dialog/delete-confirmation-dialog';
+
 @Component({
   selector: 'app-business-units',
 
@@ -64,7 +68,8 @@ export class BusinessUnits {
     'site',
     'responsible',
     'emissions',
-    'status'
+    'status',
+    'actions'
   ];
 
   constructor() {
@@ -149,6 +154,167 @@ export class BusinessUnits {
                 this.snackBar.open(
                   this.translate.instant(
                     'organization.messages.businessUnitCreateError'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            });
+        }
+      );
+  }
+
+  protected openEditBusinessUnitDialog(
+    businessUnit: BusinessUnit
+  ): void {
+
+    this.dialog.open(
+      BusinessUnitFormDialog,
+      {
+        width: '560px',
+
+        data: {
+
+          organizationId:
+            this.store
+              .currentOrganizationId(),
+
+          sites:
+            this.store.sites(),
+
+          businessUnit
+        }
+      }
+    )
+      .afterClosed()
+      .subscribe(
+        (
+          changes:
+            Omit<BusinessUnit, 'id'>
+            | undefined
+        ) => {
+
+          if (!changes) {
+            return;
+          }
+
+
+          this.store
+            .updateBusinessUnit(
+              businessUnit.id,
+              changes
+            )
+            .subscribe({
+
+              next: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitUpdated'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              },
+
+              error: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitUpdateError'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            });
+        }
+      );
+  }
+
+
+  protected confirmDeleteBusinessUnit(
+    businessUnit: BusinessUnit
+  ): void {
+
+    this.dialog.open(
+      DeleteConfirmationDialog,
+      {
+        width: '440px',
+
+        data: {
+
+          titleKey:
+            'organization.businessUnits.deleteTitle',
+
+          messageKey:
+            'organization.businessUnits.deleteMessage',
+
+          confirmKey:
+            'organization.businessUnits.deleteAction',
+
+          name:
+          businessUnit.name
+        }
+      }
+    )
+      .afterClosed()
+      .subscribe(
+        (
+          confirmed?: boolean
+        ) => {
+
+          if (!confirmed) {
+            return;
+          }
+
+
+          this.store
+            .deleteBusinessUnit(
+              businessUnit.id
+            )
+            .subscribe({
+
+              next: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitDeleted'
+                  ),
+
+                  this.translate.instant(
+                    'organization.actions.close'
+                  ),
+
+                  {
+                    duration: 3000
+                  }
+                );
+              },
+
+              error: () => {
+
+                this.snackBar.open(
+                  this.translate.instant(
+                    'organization.messages.businessUnitDeleteError'
                   ),
 
                   this.translate.instant(

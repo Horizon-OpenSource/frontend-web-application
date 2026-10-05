@@ -78,7 +78,14 @@ export class OrganizationStore {
 
         this.businessUnits.set(data.businessUnits);
 
-        this.activities.set(data.activities);
+        this.activities.set(
+          [...data.activities].sort(
+            (a, b) =>
+              b.occurredAt.localeCompare(
+                a.occurredAt
+              )
+          )
+        );
 
         this.loading.set(false);
       },
@@ -101,7 +108,15 @@ export class OrganizationStore {
       )
       .pipe(
         tap(updatedOrganization => {
-          this.organization.set(updatedOrganization);
+
+          this.organization.set(
+            updatedOrganization
+          );
+
+          this.registerActivity(
+            'ORGANIZATION_UPDATED',
+            'Updated organization information'
+          );
         })
       );
   }
@@ -136,10 +151,18 @@ export class OrganizationStore {
       .createSite(site)
       .pipe(
         tap(createdSite => {
-          this.sites.update(sites => [
-            ...sites,
-            createdSite
-          ]);
+
+          this.sites.update(
+            sites => [
+              ...sites,
+              createdSite
+            ]
+          );
+
+          this.registerActivity(
+            'SITE_CREATED',
+            `Added new site: ${createdSite.name}`
+          );
         })
       );
   }
@@ -173,15 +196,23 @@ export class OrganizationStore {
   ): Observable<BusinessUnit> {
 
     return this.organizationApi
-      .createBusinessUnit(businessUnit)
+      .createBusinessUnit(
+        businessUnit
+      )
       .pipe(
         tap(createdBusinessUnit => {
 
-          this.businessUnits.update(units => [
-            ...units,
-            createdBusinessUnit
-          ]);
+          this.businessUnits.update(
+            units => [
+              ...units,
+              createdBusinessUnit
+            ]
+          );
 
+          this.registerActivity(
+            'BUSINESS_UNIT_CREATED',
+            `Added business unit: ${createdBusinessUnit.name}`
+          );
         })
       );
   }
@@ -236,5 +267,170 @@ export class OrganizationStore {
     && organizationId > 0
       ? organizationId
       : 1;
+  }
+
+  updateSite(
+    id: number,
+    changes: Partial<Site>
+  ): Observable<Site> {
+
+    return this.organizationApi
+      .updateSite(id, changes)
+      .pipe(
+        tap(updatedSite => {
+
+          this.sites.update(
+            sites =>
+              sites.map(
+                site =>
+                  site.id === id
+                    ? updatedSite
+                    : site
+              )
+          );
+
+          this.registerActivity(
+            'SITE_UPDATED',
+            `Updated site: ${updatedSite.name}`
+          );
+        })
+      );
+  }
+
+
+  deleteSite(
+    id: number
+  ): Observable<void> {
+
+    const site =
+      this.sites()
+        .find(
+          item =>
+            item.id === id
+        );
+
+    return this.organizationApi
+      .deleteSite(id)
+      .pipe(
+        tap(() => {
+
+          this.sites.update(
+            sites =>
+              sites.filter(
+                item =>
+                  item.id !== id
+              )
+          );
+
+          this.registerActivity(
+            'SITE_DELETED',
+            `Deleted site: ${site?.name ?? id}`
+          );
+        })
+      );
+  }
+
+
+  updateBusinessUnit(
+    id: number,
+    changes: Partial<BusinessUnit>
+  ): Observable<BusinessUnit> {
+
+    return this.organizationApi
+      .updateBusinessUnit(
+        id,
+        changes
+      )
+      .pipe(
+        tap(updatedBusinessUnit => {
+
+          this.businessUnits.update(
+            units =>
+              units.map(
+                unit =>
+                  unit.id === id
+                    ? updatedBusinessUnit
+                    : unit
+              )
+          );
+
+          this.registerActivity(
+            'BUSINESS_UNIT_UPDATED',
+            `Updated business unit: ${updatedBusinessUnit.name}`
+          );
+        })
+      );
+  }
+
+
+  deleteBusinessUnit(
+    id: number
+  ): Observable<void> {
+
+    const businessUnit =
+      this.businessUnits()
+        .find(
+          unit =>
+            unit.id === id
+        );
+
+    return this.organizationApi
+      .deleteBusinessUnit(id)
+      .pipe(
+        tap(() => {
+
+          this.businessUnits.update(
+            units =>
+              units.filter(
+                unit =>
+                  unit.id !== id
+              )
+          );
+
+          this.registerActivity(
+            'BUSINESS_UNIT_DELETED',
+            `Deleted business unit: ${businessUnit?.name ?? id}`
+          );
+        })
+      );
+  }
+
+  private registerActivity(
+    type: string,
+    description: string
+  ): void {
+
+    this.organizationApi
+      .createActivity({
+        organizationId:
+          this.currentOrganizationId(),
+
+        type,
+
+        description,
+
+        occurredAt:
+          new Date().toISOString()
+      })
+      .subscribe({
+
+        next: activity => {
+
+          this.activities.update(
+            activities => [
+              activity,
+              ...activities
+            ]
+          );
+        },
+
+        error: error => {
+
+          console.error(
+            'Unable to register activity',
+            error
+          );
+        }
+      });
   }
 }

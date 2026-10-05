@@ -1,0 +1,22 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 4px 16px;
+  min-width: min(680px, 80vw);
+  padding-top: 12px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 720px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+}

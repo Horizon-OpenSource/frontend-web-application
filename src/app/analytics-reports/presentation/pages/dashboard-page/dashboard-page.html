@@ -3,7 +3,7 @@
     <div>
       <h1 id="dashboard-title">{{ 'analytics.dashboard.title' | translate }}</h1>
       <p class="subtitle">
-        {{ 'analytics.dashboard.subtitle' | translate: { organization: store.organizationName } }}
+        {{ 'analytics.dashboard.subtitle' | translate: { organization: store.organizationName() } }}
       </p>
     </div>
     <mat-form-field appearance="outline" class="period-field" subscriptSizing="dynamic">

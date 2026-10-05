@@ -65,9 +65,13 @@ export class ReportsPage implements OnInit {
     this.dialog
       .open(GenerateReportDialog, { data, width: '520px', maxWidth: '95vw' })
       .afterClosed()
-      .subscribe((request?: GenerateReportRequest) => {
+      .subscribe(async (request?: GenerateReportRequest) => {
         if (!request) return;
-        const result = this.store.generateReport(request.type, request.periodId);
+        const result =
+          await this.store.generateReport(
+            request.type,
+            request.periodId
+          );
         if (result === 'generated') {
           this.notify('analytics.reports.messages.generated');
         } else {
@@ -87,11 +91,6 @@ export class ReportsPage implements OnInit {
         ? 'analytics.reports.messages.downloaded'
         : 'analytics.reports.messages.unavailable',
     );
-  }
-
-  protected resetDemoData(): void {
-    this.store.resetDemoData();
-    this.notify('analytics.reports.messages.reset');
   }
 
   private notify(key: string, params?: Record<string, string>): void {

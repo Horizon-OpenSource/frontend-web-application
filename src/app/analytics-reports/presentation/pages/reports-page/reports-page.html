@@ -3,13 +3,10 @@
     <div>
       <h1 id="reports-title">{{ 'analytics.reports.title' | translate }}</h1>
       <p class="subtitle">
-        {{ 'analytics.reports.subtitle' | translate: { organization: store.organizationName } }}
+        {{ 'analytics.reports.subtitle' | translate: { organization: store.organizationName() } }}
       </p>
     </div>
     <div class="header-actions">
-      <button mat-button type="button" (click)="resetDemoData()">
-        <mat-icon>restart_alt</mat-icon>{{ 'analytics.reports.actions.resetDemo' | translate }}
-      </button>
       <button mat-flat-button type="button" (click)="openGenerate()">
         <mat-icon>add</mat-icon>{{ 'analytics.reports.actions.generate' | translate }}
       </button>

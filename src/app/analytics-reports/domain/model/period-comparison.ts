@@ -1,7 +1,7 @@
 import { EmissionSummary } from './emission-summary.entity';
 
 /**
- * Result of comparing two periods (US-20).
+ * Result of comparing two reporting periods.
  */
 export interface PeriodComparison {
   base: EmissionSummary;
@@ -11,26 +11,48 @@ export interface PeriodComparison {
 }
 
 /**
- * Compares two summaries. Returns null when either period has no calculated
- * results, so the UI can report insufficient data (US-20, scenario 2).
+ * Compares the calculated emissions available for two periods.
+ *
+ * The comparison is possible when both periods contain at least
+ * one calculated result.
  */
 export function comparePeriods(
   base: EmissionSummary,
   target: EmissionSummary
 ): PeriodComparison | null {
-  if (base.missingScopes.length || target.missingScopes.length) {
+
+  const baseTotal =
+    base.totalTonnesCo2e;
+
+  const targetTotal =
+    target.totalTonnesCo2e;
+
+
+  if (
+    baseTotal === null ||
+    targetTotal === null
+  ) {
     return null;
   }
-  const baseTotal = base.totalTonnesCo2e;
-  const targetTotal = target.totalTonnesCo2e;
-  if (baseTotal === null || targetTotal === null || baseTotal === 0) {
-    return null;
-  }
-  const deltaTonnesCo2e = targetTotal - baseTotal;
+
+
+  const deltaTonnesCo2e =
+    targetTotal - baseTotal;
+
+
+  const deltaPercent =
+    baseTotal === 0
+      ? 0
+      : (
+      deltaTonnesCo2e /
+      baseTotal
+    ) * 100;
+
+
   return {
     base,
     target,
     deltaTonnesCo2e,
-    deltaPercent: (deltaTonnesCo2e / baseTotal) * 100
+    deltaPercent
   };
 }

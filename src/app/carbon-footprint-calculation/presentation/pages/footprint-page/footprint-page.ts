@@ -64,11 +64,6 @@ export class FootprintPage implements OnInit {
     this.notify('carbonFootprint.messages.cleared');
   }
 
-  protected async resetDemoData(): Promise<void> {
-    await this.store.resetDemoData();
-    this.notify('carbonFootprint.messages.reset');
-  }
-
   private notify(key: string): void {
     this.snackBar.open(
       this.translate.instant(key),

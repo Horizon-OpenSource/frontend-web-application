@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { FootprintStore } from './application/footprint.store';
 import { FootprintRepository } from './domain/repository/footprint.repository';
-import { MockFootprintRepository } from './infrastructure/mock-footprint.repository';
+import { HttpFootprintRepository } from './infrastructure/http-footprint.repository';
 
 /**
  * Routes of the Carbon Footprint Calculation bounded context.
@@ -13,7 +13,10 @@ export const CARBON_FOOTPRINT_ROUTES: Routes = [
     path: '',
     providers: [
       FootprintStore,
-      { provide: FootprintRepository, useClass: MockFootprintRepository },
+      {
+        provide: FootprintRepository,
+        useClass: HttpFootprintRepository
+      },
     ],
     loadComponent: () =>
       import('./presentation/pages/footprint-page/footprint-page').then(

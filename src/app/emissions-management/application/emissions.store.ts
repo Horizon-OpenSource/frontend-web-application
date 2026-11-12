@@ -102,9 +102,7 @@ export class EmissionsStore {
 
   delete(activityDataId: string): void {
     this.repository.delete(activityDataId);
-    this.recordsSignal.update(records =>
-      records.filter(record => record.activityData.id !== activityDataId)
-    );
+    this.load();
   }
 
   resetDemoData(): void {

@@ -59,6 +59,12 @@ export class EmissionsStore {
 
   load(): void {
     this.recordsSignal.set(this.repository.getAll());
+    if (this.periodSignal() !== 'ALL' && !this.periods().includes(this.periodSignal())) {
+      this.periodSignal.set('ALL');
+    }
+    if (this.sourceSignal() !== 'ALL' && !this.sourceOptions().includes(this.sourceSignal())) {
+      this.sourceSignal.set('ALL');
+    }
   }
 
   setSearch(value: string): void {

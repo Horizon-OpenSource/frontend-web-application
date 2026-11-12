@@ -108,6 +108,12 @@ export class MockEmissionsRepository {
     return MOCK_RECORDS;
   }
 
+  private validateFacility(input: EmissionRecordInput): void {
+    if (!this.facilities.some(facility => facility.id === input.facilityId && facility.name === input.facilityName)) {
+      throw new Error('A valid facility is required.');
+    }
+  }
+
   private save(records: EmissionRecord[]): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
   }

@@ -27,16 +27,19 @@ export class MockEmissionsRepository {
 
   getAll(): EmissionRecord[] {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      this.save(MOCK_RECORDS);
-      return MOCK_RECORDS;
+    if (stored === null) {
+      const initial = this.hydrate(MOCK_RECORDS);
+      this.save(initial);
+      return initial;
     }
 
     try {
-      return this.hydrate(JSON.parse(stored) as EmissionRecord[]);
+      const parsed: unknown = JSON.parse(stored);
+      if (!Array.isArray(parsed)) throw new Error('Expected an array.');
+      return this.hydrate(parsed as EmissionRecord[]);
     } catch {
-      this.save(MOCK_RECORDS);
-      return MOCK_RECORDS;
+      // Never overwrite existing data when parsing or validation fails.
+      throw new Error('Saved emission records could not be read.');
     }
   }
 

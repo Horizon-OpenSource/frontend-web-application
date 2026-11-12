@@ -102,7 +102,11 @@ export class MockEmissionsRepository {
   }
 
   delete(activityDataId: string): void {
-    this.save(this.getAll().filter(record => record.activityData.id !== activityDataId));
+    const records = this.getAll();
+    if (!records.some(record => record.activityData.id === activityDataId)) {
+      throw new Error('Emission record not found.');
+    }
+    this.save(records.filter(record => record.activityData.id !== activityDataId));
   }
 
   reset(): EmissionRecord[] {

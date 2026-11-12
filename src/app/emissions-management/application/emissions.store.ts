@@ -91,8 +91,8 @@ export class EmissionsStore {
   }
 
   create(input: EmissionRecordInput): void {
-    const record = this.repository.create(input);
-    this.recordsSignal.update(records => [...records, record]);
+    this.repository.create(input);
+    this.load();
   }
 
   update(activityDataId: string, input: EmissionRecordInput): void {

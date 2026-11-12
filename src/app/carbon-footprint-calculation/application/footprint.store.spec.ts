@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FootprintRepository } from '../domain/repository/footprint.repository';
 import { FootprintScope } from '../domain/model/footprint-scope';
-import { MockFootprintRepository } from '../infrastructure/mock-footprint.repository';
+import { InMemoryFootprintRepository } from '../testing/in-memory-footprint.repository';
 import { FootprintStore } from './footprint.store';
 
 describe('FootprintStore', () => {
@@ -12,7 +12,7 @@ describe('FootprintStore', () => {
     TestBed.configureTestingModule({
       providers: [
         FootprintStore,
-        { provide: FootprintRepository, useClass: MockFootprintRepository },
+        { provide: FootprintRepository, useClass: InMemoryFootprintRepository },
       ],
     });
     store = TestBed.inject(FootprintStore);

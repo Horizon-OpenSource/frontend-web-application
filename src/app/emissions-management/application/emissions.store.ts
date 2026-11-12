@@ -96,10 +96,8 @@ export class EmissionsStore {
   }
 
   update(activityDataId: string, input: EmissionRecordInput): void {
-    const updated = this.repository.update(activityDataId, input);
-    this.recordsSignal.update(records =>
-      records.map(record => record.activityData.id === activityDataId ? updated : record)
-    );
+    this.repository.update(activityDataId, input);
+    this.load();
   }
 
   delete(activityDataId: string): void {

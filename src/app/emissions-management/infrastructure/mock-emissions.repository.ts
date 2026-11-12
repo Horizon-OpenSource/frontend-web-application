@@ -72,6 +72,7 @@ export class MockEmissionsRepository {
   }
 
   update(activityDataId: string, input: EmissionRecordInput): EmissionRecord {
+    this.validateFacility(input);
     const records = this.getAll();
     const current = records.find(record => record.activityData.id === activityDataId);
     if (!current) throw new Error('Emission record not found.');

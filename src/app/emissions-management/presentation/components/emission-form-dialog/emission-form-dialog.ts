@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
@@ -15,6 +15,7 @@ import { requiredTrimmedText, validActivityQuantity, validEmissionScope, validFa
 export interface EmissionFormDialogData {
   record?: EmissionRecord;
   facilities: FacilityOption[];
+  save: (input: EmissionRecordInput) => void;
 }
 
 @Component({
@@ -29,6 +30,7 @@ export class EmissionFormDialog {
   protected readonly data = inject<EmissionFormDialogData>(MAT_DIALOG_DATA);
   protected readonly scopes = EMISSION_SCOPES;
   protected readonly isEditing = Boolean(this.data.record);
+  protected readonly saveError = signal(false);
 
   protected readonly form = this.formBuilder.nonNullable.group({
     sourceName: [this.data.record?.source.name ?? '', requiredTrimmedText(SOURCE_NAME_MAX_LENGTH)],
@@ -42,6 +44,7 @@ export class EmissionFormDialog {
   });
 
   protected submit(): void {
+    this.saveError.set(false);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -51,14 +54,20 @@ export class EmissionFormDialog {
     const facility = this.data.facilities.find(option => option.id === value.facilityId);
     if (!facility) return;
 
-    this.dialogRef.close({
+    const input: EmissionRecordInput = {
       ...value,
       sourceName: value.sourceName.trim(),
       sourceType: value.sourceType.trim(),
       unit: value.unit.trim(),
       facilityName: facility.name,
       scope: value.scope as EmissionScope
-    });
+    };
+    try {
+      this.data.save(input);
+      this.dialogRef.close(input);
+    } catch {
+      this.saveError.set(true);
+    }
   }
 
   protected cancel(): void {

@@ -26,3 +26,5 @@
     grid-column: auto;
   }
 }
+
+.save-error { color: #b3261e; margin: 12px 24px; }

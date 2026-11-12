@@ -65,9 +65,9 @@ export class EmissionsPage implements OnInit {
     this.dialog.open(EmissionFormDialog, {
       width: '760px',
       maxWidth: '95vw',
-      data: { facilities: this.store.facilities }
+      data: { facilities: this.store.facilities, save: (input: EmissionRecordInput) => this.store.create(input) }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
-      if (input) this.perform(() => this.store.create(input), 'emissions.messages.created');
+      if (input) this.notify('emissions.messages.created');
     });
   }
 
@@ -75,9 +75,9 @@ export class EmissionsPage implements OnInit {
     this.dialog.open(EmissionFormDialog, {
       width: '760px',
       maxWidth: '95vw',
-      data: { record, facilities: this.store.facilities }
+      data: { record, facilities: this.store.facilities, save: (input: EmissionRecordInput) => this.store.update(record.activityData.id, input) }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
-      if (input) this.perform(() => this.store.update(record.activityData.id, input), 'emissions.messages.updated');
+      if (input) this.notify('emissions.messages.updated');
     });
   }
 

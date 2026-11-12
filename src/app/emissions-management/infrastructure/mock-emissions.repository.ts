@@ -110,8 +110,9 @@ export class MockEmissionsRepository {
   }
 
   reset(): EmissionRecord[] {
-    this.save(MOCK_RECORDS);
-    return MOCK_RECORDS;
+    const initial = this.hydrate(MOCK_RECORDS);
+    this.save(initial);
+    return initial;
   }
 
   private validateFacility(input: EmissionRecordInput): void {

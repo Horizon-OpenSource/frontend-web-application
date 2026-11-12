@@ -21,7 +21,8 @@
                       "recordsTitle":  "Registered activity data",
                       "results":  "{{count}} records found",
                       "summary":  {
-                                      "total":  "Total records"
+                                      "total":  "Total records",
+                                      "label":  "Emission record summary"
                                   },
                       "scopes":  {
                                      "SCOPE_1":  "Scope 1",
@@ -62,7 +63,11 @@
                                       "edit":  "Edit",
                                       "delete":  "Delete",
                                       "clearFilters":  "Clear filters",
-                                      "resetDemo":  "Reset demo data"
+                                      "resetDemo":  "Reset demo data",
+                                      "retry":  "Try again",
+                                      "viewNamed":  "View details for {{name}}",
+                                      "editNamed":  "Edit {{name}}",
+                                      "deleteNamed":  "Delete {{name}}"
                                   },
                       "form":  {
                                    "createTitle":  "Register emission source and activity data",
@@ -80,7 +85,9 @@
                                  },
                       "empty":  {
                                     "title":  "No emission records found",
-                                    "message":  "Change or clear the filters to see more results."
+                                    "message":  "Change or clear the filters to see more results.",
+                                    "noRecordsTitle":  "No records yet",
+                                    "noRecordsMessage":  "Add a record to start your inventory."
                                 },
                       "validation":  {
                                          "required":  "This field is required.",
@@ -94,7 +101,17 @@
                                        "created":  "Emission record created.",
                                        "updated":  "Emission record updated.",
                                        "deleted":  "Emission record deleted.",
-                                       "reset":  "Demo data restored."
-                                   }
+                                       "reset":  "Demo data restored.",
+                                       "operationFailed":  "The change could not be saved. Please try again."
+                                   },
+                      "reset":  {
+                                    "title":  "Restore demo data?",
+                                    "message":  "This replaces all emission records saved in this browser with the demo records.",
+                                    "warning":  "This cannot be undone."
+                                },
+                      "loadError":  {
+                                        "message":  "The saved data could not be read or browser storage is unavailable. Existing data has not been replaced.",
+                                        "title":  "Records could not be loaded"
+                                    }
                   }
 }

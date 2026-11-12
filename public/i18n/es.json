@@ -21,7 +21,8 @@
                       "recordsTitle":  "Datos de actividad registrados",
                       "results":  "{{count}} registros encontrados",
                       "summary":  {
-                                      "total":  "Total de registros"
+                                      "total":  "Total de registros",
+                                      "label":  "Resumen de registros de emisiones"
                                   },
                       "scopes":  {
                                      "SCOPE_1":  "Alcance 1",
@@ -62,7 +63,11 @@
                                       "edit":  "Editar",
                                       "delete":  "Eliminar",
                                       "clearFilters":  "Limpiar filtros",
-                                      "resetDemo":  "Restaurar datos demo"
+                                      "resetDemo":  "Restaurar datos demo",
+                                      "retry":  "Reintentar",
+                                      "viewNamed":  "Ver detalle de {{name}}",
+                                      "editNamed":  "Editar {{name}}",
+                                      "deleteNamed":  "Eliminar {{name}}"
                                   },
                       "form":  {
                                    "createTitle":  "Registrar fuente y dato de actividad",
@@ -80,7 +85,9 @@
                                  },
                       "empty":  {
                                     "title":  "No se encontraron emisiones",
-                                    "message":  "Cambia o limpia los filtros para ver más resultados."
+                                    "message":  "Cambia o limpia los filtros para ver más resultados.",
+                                    "noRecordsTitle":  "Aún no hay registros",
+                                    "noRecordsMessage":  "Agrega un registro para iniciar tu inventario."
                                 },
                       "validation":  {
                                          "required":  "Este campo es obligatorio.",
@@ -94,7 +101,17 @@
                                        "created":  "Registro de emisión creado.",
                                        "updated":  "Registro de emisión actualizado.",
                                        "deleted":  "Registro de emisión eliminado.",
-                                       "reset":  "Datos de demostración restaurados."
-                                   }
+                                       "reset":  "Datos de demostración restaurados.",
+                                       "operationFailed":  "No se pudo guardar el cambio. Inténtalo nuevamente."
+                                   },
+                      "reset":  {
+                                    "title":  "¿Restaurar los datos demo?",
+                                    "message":  "Se reemplazarán todos los registros de emisiones guardados en este navegador por los datos de demostración.",
+                                    "warning":  "Esta acción no se puede deshacer."
+                                },
+                      "loadError":  {
+                                        "message":  "No se pudieron leer los datos guardados o el almacenamiento del navegador no está disponible. Los datos existentes no fueron reemplazados.",
+                                        "title":  "No se pudieron cargar los registros"
+                                    }
                   }
 }

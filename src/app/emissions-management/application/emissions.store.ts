@@ -2,6 +2,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { EmissionRecord, EmissionRecordInput } from '../domain/model/emission-record.model';
 import { EmissionScope } from '../domain/model/emission-scope';
 import { MockEmissionsRepository } from '../infrastructure/mock-emissions.repository';
+import { normalizeSearchText } from './search-text';
 
 @Injectable({ providedIn: 'root' })
 export class EmissionsStore {
@@ -28,19 +29,21 @@ export class EmissionsStore {
   );
 
   readonly filteredRecords = computed(() => {
-    const term = this.searchSignal().trim().toLowerCase();
+    const term = normalizeSearchText(this.searchSignal());
     const scope = this.scopeSignal();
     const period = this.periodSignal();
     const source = this.sourceSignal();
 
     return this.recordsSignal().filter(record => {
-      const searchable = [
+      const searchable = normalizeSearchText([
         record.source.name,
         record.source.type,
         record.source.facilityName,
+        record.source.scope.replace('_', ' '),
+        record.activityData.period,
         record.activityData.unit,
         record.activityData.origin
-      ].join(' ').toLowerCase();
+      ].join(' '));
 
       return (!term || searchable.includes(term))
         && (scope === 'ALL' || record.source.scope === scope)

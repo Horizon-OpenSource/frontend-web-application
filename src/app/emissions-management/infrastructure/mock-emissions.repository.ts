@@ -44,6 +44,7 @@ export class MockEmissionsRepository {
   }
 
   create(input: EmissionRecordInput): EmissionRecord {
+    this.validateFacility(input);
     const now = new Date().toISOString();
     const sourceId = crypto.randomUUID();
     const record: EmissionRecord = {

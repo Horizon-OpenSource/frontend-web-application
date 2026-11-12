@@ -5,7 +5,7 @@
       <mat-label>{{ 'emissions.fields.sourceName' | translate }}</mat-label>
       <input matInput formControlName="sourceName" autocomplete="off" />
       @if (form.controls.sourceName.invalid && form.controls.sourceName.touched) {
-        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+        <mat-error>{{ (form.controls.sourceName.hasError('maxlength') ? 'emissions.validation.maxLength' : 'emissions.validation.required') | translate:{ count: 120 } }}</mat-error>
       }
     </mat-form-field>
 
@@ -13,7 +13,7 @@
       <mat-label>{{ 'emissions.fields.sourceType' | translate }}</mat-label>
       <input matInput formControlName="sourceType" autocomplete="off" />
       @if (form.controls.sourceType.invalid && form.controls.sourceType.touched) {
-        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+        <mat-error>{{ (form.controls.sourceType.hasError('maxlength') ? 'emissions.validation.maxLength' : 'emissions.validation.required') | translate:{ count: 100 } }}</mat-error>
       }
     </mat-form-field>
 
@@ -25,7 +25,7 @@
         }
       </mat-select>
       @if (form.controls.facilityId.invalid && form.controls.facilityId.touched) {
-        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+        <mat-error>{{ 'emissions.validation.facility' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -36,11 +36,14 @@
           <mat-option [value]="scope">{{ ('emissions.scopes.' + scope) | translate }}</mat-option>
         }
       </mat-select>
+      @if (form.controls.scope.invalid && form.controls.scope.touched) {
+        <mat-error>{{ 'emissions.validation.scope' | translate }}</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>{{ 'emissions.fields.quantity' | translate }}</mat-label>
-      <input matInput type="number" min="0.01" step="0.01" formControlName="quantity" />
+      <input matInput type="number" min="0" step="any" formControlName="quantity" />
       @if (form.controls.quantity.invalid && form.controls.quantity.touched) {
         <mat-error>{{ 'emissions.validation.positive' | translate }}</mat-error>
       }
@@ -50,7 +53,7 @@
       <mat-label>{{ 'emissions.fields.unit' | translate }}</mat-label>
       <input matInput formControlName="unit" placeholder="kWh, L, km..." autocomplete="off" />
       @if (form.controls.unit.invalid && form.controls.unit.touched) {
-        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+        <mat-error>{{ (form.controls.unit.hasError('maxlength') ? 'emissions.validation.maxLength' : 'emissions.validation.required') | translate:{ count: 20 } }}</mat-error>
       }
     </mat-form-field>
 
@@ -58,18 +61,15 @@
       <mat-label>{{ 'emissions.fields.period' | translate }}</mat-label>
       <input matInput type="month" formControlName="period" />
       @if (form.controls.period.invalid && form.controls.period.touched) {
-        <mat-error>{{ 'emissions.validation.required' | translate }}</mat-error>
+        <mat-error>{{ 'emissions.validation.period' | translate }}</mat-error>
       }
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{ 'emissions.fields.origin' | translate }}</mat-label>
-      <mat-select formControlName="origin">
-        @for (origin of origins; track origin) {
-          <mat-option [value]="origin">{{ ('emissions.origins.' + origin) | translate }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
+    <div class="origin-note full-width">
+      <strong>{{ 'emissions.fields.origin' | translate }}:</strong>
+      {{ ('emissions.origins.' + form.controls.origin.value) | translate }}.
+      {{ (isEditing ? 'emissions.form.originRetained' : 'emissions.form.manualOrigin') | translate }}
+    </div>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">

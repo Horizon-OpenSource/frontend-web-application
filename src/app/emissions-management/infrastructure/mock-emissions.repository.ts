@@ -24,6 +24,7 @@ const MOCK_RECORDS: EmissionRecord[] = [
 @Injectable({ providedIn: 'root' })
 export class MockEmissionsRepository {
   readonly facilities = FACILITIES;
+  readonly storageKey = STORAGE_KEY;
 
   getAll(): EmissionRecord[] {
     const stored = localStorage.getItem(STORAGE_KEY);

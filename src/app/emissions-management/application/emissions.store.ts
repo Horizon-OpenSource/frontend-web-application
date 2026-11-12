@@ -19,6 +19,7 @@ export class EmissionsStore {
   readonly period = this.periodSignal.asReadonly();
   readonly source = this.sourceSignal.asReadonly();
   readonly facilities = this.repository.facilities;
+  readonly storageKey = this.repository.storageKey;
 
   readonly periods = computed(() =>
     [...new Set(this.recordsSignal().map(record => record.activityData.period))].sort().reverse()

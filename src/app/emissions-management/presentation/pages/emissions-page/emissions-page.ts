@@ -1,4 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChip } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,6 +28,8 @@ import { EmissionFormDialog } from '../../components/emission-form-dialog/emissi
 export class EmissionsPage implements OnInit {
   protected readonly store = inject(EmissionsStore);
   private readonly dialog = inject(MatDialog);
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
   protected readonly scopes = EMISSION_SCOPES;
@@ -35,6 +38,14 @@ export class EmissionsPage implements OnInit {
 
   ngOnInit(): void {
     this.reloadRecords();
+    const view = this.document.defaultView;
+    if (view) {
+      const onStorage = (event: StorageEvent): void => {
+        if (event.key === this.store.storageKey || event.key === null) this.reloadRecords();
+      };
+      view.addEventListener('storage', onStorage);
+      this.destroyRef.onDestroy(() => view.removeEventListener('storage', onStorage));
+    }
   }
 
   protected reloadRecords(): void {

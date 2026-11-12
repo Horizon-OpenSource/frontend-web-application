@@ -113,10 +113,16 @@ export class MockEmissionsRepository {
   }
 
   private hydrate(records: EmissionRecord[]): EmissionRecord[] {
-    return records.map(record => ({
-      source: new EmissionSource(record.source),
-      activityData: new ActivityData(record.activityData)
-    }));
+    const ids = new Set<string>();
+    return records.map(record => {
+      const source = new EmissionSource(record.source);
+      const activityData = new ActivityData(record.activityData);
+      if (activityData.emissionSourceId !== source.id || ids.has(activityData.id)) {
+        throw new Error('Invalid or duplicated emission record.');
+      }
+      ids.add(activityData.id);
+      return { source, activityData };
+    });
   }
 }
 

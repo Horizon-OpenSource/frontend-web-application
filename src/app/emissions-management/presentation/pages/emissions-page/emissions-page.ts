@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChip } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { EmissionsStore } from '../../../application/emissions.store';
 import { EmissionRecord, EmissionRecordInput } from '../../../domain/model/emission-record.model';
 import { EMISSION_SCOPES, EmissionScope } from '../../../domain/model/emission-scope';
 import { ConfirmDeleteDialog } from '../../components/confirm-delete-dialog/confirm-delete-dialog';
+import { ConfirmResetDialog } from '../../components/confirm-reset-dialog';
 import { EmissionDetailDialog } from '../../components/emission-detail-dialog/emission-detail-dialog';
 import { EmissionFormDialog } from '../../components/emission-form-dialog/emission-form-dialog';
 
@@ -29,10 +30,20 @@ export class EmissionsPage implements OnInit {
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
   protected readonly scopes = EMISSION_SCOPES;
+  protected readonly loadError = signal(false);
   protected readonly displayedColumns = ['source', 'scope', 'activity', 'period', 'origin', 'actions'];
 
   ngOnInit(): void {
-    this.store.load();
+    this.reloadRecords();
+  }
+
+  protected reloadRecords(): void {
+    try {
+      this.store.load();
+      this.loadError.set(false);
+    } catch {
+      this.loadError.set(true);
+    }
   }
 
   protected setScope(value: EmissionScope | 'ALL'): void {
@@ -45,9 +56,7 @@ export class EmissionsPage implements OnInit {
       maxWidth: '95vw',
       data: { facilities: this.store.facilities }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
-      if (!input) return;
-      this.store.create(input);
-      this.notify('emissions.messages.created');
+      if (input) this.perform(() => this.store.create(input), 'emissions.messages.created');
     });
   }
 
@@ -57,9 +66,7 @@ export class EmissionsPage implements OnInit {
       maxWidth: '95vw',
       data: { record, facilities: this.store.facilities }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
-      if (!input) return;
-      this.store.update(record.activityData.id, input);
-      this.notify('emissions.messages.updated');
+      if (input) this.perform(() => this.store.update(record.activityData.id, input), 'emissions.messages.updated');
     });
   }
 
@@ -68,20 +75,34 @@ export class EmissionsPage implements OnInit {
   }
 
   protected confirmDelete(record: EmissionRecord): void {
-    this.dialog.open(ConfirmDeleteDialog, { data: record.source.name, width: '440px' })
+    this.dialog.open(ConfirmDeleteDialog, { data: record.source.name, width: '440px', maxWidth: '95vw' })
       .afterClosed().subscribe((confirmed?: boolean) => {
-        if (!confirmed) return;
-        this.store.delete(record.activityData.id);
-        this.notify('emissions.messages.deleted');
+        if (confirmed) this.perform(() => this.store.delete(record.activityData.id), 'emissions.messages.deleted');
       });
   }
 
   protected resetDemoData(): void {
-    this.store.resetDemoData();
-    this.notify('emissions.messages.reset');
+    this.dialog.open(ConfirmResetDialog, { width: '440px', maxWidth: '95vw' })
+      .afterClosed().subscribe((confirmed?: boolean) => {
+        if (confirmed) {
+          this.perform(() => {
+            this.store.resetDemoData();
+            this.loadError.set(false);
+          }, 'emissions.messages.reset');
+        }
+      });
+  }
+
+  private perform(action: () => void, successKey: string): void {
+    try {
+      action();
+      this.notify(successKey);
+    } catch {
+      this.notify('emissions.messages.operationFailed');
+    }
   }
 
   private notify(key: string): void {
-    this.snackBar.open(this.translate.instant(key), this.translate.instant('emissions.actions.close'), { duration: 3000 });
+    this.snackBar.open(this.translate.instant(key), this.translate.instant('emissions.actions.close'), { duration: 5000 });
   }
 }

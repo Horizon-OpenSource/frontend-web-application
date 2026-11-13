@@ -31,8 +31,8 @@ import {
 } from '../domain/model/reporting-period.entity';
 
 import {
-  AnalyticsApiRepository
-} from '../infrastructure/analytics-api.repository';
+  AnalyticsRepository
+} from '../domain/repository/analytics.repository';
 
 import {
   ReportFileExporter
@@ -58,7 +58,7 @@ export const ALL_PERIODS =
 export class AnalyticsStore {
 
   private readonly repository =
-    inject(AnalyticsApiRepository);
+    inject(AnalyticsRepository);
 
   private readonly exporter =
     inject(ReportFileExporter);

@@ -1,0 +1,12 @@
+form {
+  display: grid;
+  min-width: 440px;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+@media (max-width: 600px) {
+  form {
+    min-width: auto;
+  }
+}

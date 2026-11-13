@@ -24,13 +24,11 @@ Create a record by selecting its facility and scope and providing the source and
 
 Search is case- and accent-insensitive and matches source and associated record fields. The search and available filters can be combined; filters are cleared if their selected options disappear. Registration checks required fields, valid periods, positive finite quantities and consistency between facility and source. The stored values represent activity data, not calculated emissions in CO2 equivalent.
 
-## Demo data and limitations
+## Integration and limitations
 
-`MockEmissionsRepository` seeds six records across Scope 1, Scope 2 and Scope 3 and persists changes in browser `localStorage`. Records are local to that browser and site; they are not shared with other users or synchronized with a backend. Open tabs on the same site refresh when the stored data changes. CSV and API origins are labels on existing records, not import or integration functionality.
+The application uses `EmissionsApiRepository` to connect to the shared EcoTrack mock API at `http://localhost:3000/api/v1`, including its sites, emission-sources and activity-data endpoints. Start the `ecotrack-platform-mock` service before using the screen. The repository is a mock service, not the Spring Boot backend; integration with the production backend and its access controls still requires verification. Existing localStorage demo data is not migrated or deleted by this feature.
 
-Unreadable or invalid stored data is not silently overwritten. Storage failures are reported in the interface. **Reset demo data** requires confirmation and replaces all locally saved records with the original demo records, so use it only when those changes can be discarded.
-
-The mock repository is isolated behind the application store. A future backend integration requires an HTTP repository and appropriate server-side validation and access controls.
+Search, scope/period/source filters, form validation, CRUD confirmation and error feedback remain available. A failed save keeps the form open. Activity quantities are not calculated CO₂-equivalent emissions. CSV and API origins are labels on records, not import or integration functions. The local `MockEmissionsRepository` is retained for isolated unit tests, not used by the screen.
 
 ## Verification
 

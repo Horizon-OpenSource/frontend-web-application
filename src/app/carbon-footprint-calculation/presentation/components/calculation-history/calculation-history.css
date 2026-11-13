@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+}
+th {
+  color: #455a64;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+td {
+  color: #263238;
+}
+.empty-state {
+  color: #546e7a;
+  padding: 40px 24px;
+  text-align: center;
+}
+.empty-state mat-icon {
+  font-size: 44px;
+  height: 44px;
+  width: 44px;
+}

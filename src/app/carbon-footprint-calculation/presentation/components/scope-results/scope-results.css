@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+.results-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.result-card {
+  background: #fff;
+  border: 1px solid #e2e8ea;
+  border-left: 5px solid #607d8b;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(23, 50, 77, 0.05);
+  padding: 20px;
+}
+.result-card h3 {
+  color: #455a64;
+  font-size: 15px;
+  margin: 0 0 10px;
+}
+.result-card.total {
+  border-left-color: #2e7d32;
+}
+.result-card[data-scope='SCOPE_1'] {
+  border-left-color: #e65100;
+}
+.result-card[data-scope='SCOPE_2'] {
+  border-left-color: #1565c0;
+}
+.result-card[data-scope='SCOPE_3'] {
+  border-left-color: #6a1b9a;
+}
+.value {
+  color: #17324d;
+  margin: 0;
+}
+.value strong {
+  font-size: 28px;
+}
+.value span {
+  color: #455a64;
+  font-weight: 600;
+}
+.records {
+  color: #546e7a;
+  font-size: 13px;
+  margin: 6px 0 0;
+}
+.no-results {
+  color: #546e7a;
+  margin: 0;
+}
+@media (max-width: 1000px) {
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}

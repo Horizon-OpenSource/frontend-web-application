@@ -1,0 +1,119 @@
+<h2 mat-dialog-title>
+
+  {{
+    (
+      isEdit
+        ? 'organization.sites.editTitle'
+        : 'organization.sites.addTitle'
+    ) | translate
+  }}
+
+</h2>
+
+
+<mat-dialog-content>
+
+  <form
+    id="site-form"
+    [formGroup]="form"
+    (ngSubmit)="save()">
+
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        {{ 'organization.sites.name' | translate }}
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="name"/>
+
+      @if (
+        form.controls.name.hasError(
+          'required'
+        )
+        ) {
+
+        <mat-error>
+
+          {{
+            'organization.validation.required'
+              | translate
+          }}
+
+        </mat-error>
+      }
+
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        {{ 'organization.sites.location' | translate }}
+      </mat-label>
+
+      <input
+        matInput
+        formControlName="location"/>
+
+      @if (
+        form.controls.location.hasError(
+          'required'
+        )
+        ) {
+
+        <mat-error>
+
+          {{
+            'organization.validation.required'
+              | translate
+          }}
+
+        </mat-error>
+      }
+
+    </mat-form-field>
+
+
+    <mat-slide-toggle
+      formControlName="active">
+
+      {{ 'organization.sites.active' | translate }}
+
+    </mat-slide-toggle>
+
+  </form>
+
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    type="button"
+    (click)="cancel()">
+
+    {{ 'organization.actions.cancel' | translate }}
+
+  </button>
+
+
+  <button
+    mat-flat-button
+    type="submit"
+    form="site-form">
+
+    {{
+      (
+        isEdit
+          ? 'organization.sites.editAction'
+          : 'organization.sites.addAction'
+      ) | translate
+    }}
+
+  </button>
+
+</mat-dialog-actions>

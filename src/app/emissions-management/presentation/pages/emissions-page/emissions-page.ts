@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChip } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,7 +14,6 @@ import { EmissionsStore } from '../../../application/emissions.store';
 import { EmissionRecord, EmissionRecordInput } from '../../../domain/model/emission-record.model';
 import { EMISSION_SCOPES, EmissionScope } from '../../../domain/model/emission-scope';
 import { ConfirmDeleteDialog } from '../../components/confirm-delete-dialog/confirm-delete-dialog';
-import { ConfirmResetDialog } from '../../components/confirm-reset-dialog';
 import { EmissionDetailDialog } from '../../components/emission-detail-dialog/emission-detail-dialog';
 import { EmissionFormDialog } from '../../components/emission-form-dialog/emission-form-dialog';
 
@@ -28,8 +26,6 @@ import { EmissionFormDialog } from '../../components/emission-form-dialog/emissi
 export class EmissionsPage implements OnInit {
   protected readonly store = inject(EmissionsStore);
   private readonly dialog = inject(MatDialog);
-  private readonly document = inject(DOCUMENT);
-  private readonly destroyRef = inject(DestroyRef);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
   protected readonly scopes = EMISSION_SCOPES;
@@ -38,23 +34,13 @@ export class EmissionsPage implements OnInit {
 
   ngOnInit(): void {
     this.reloadRecords();
-    const view = this.document.defaultView;
-    if (view) {
-      const onStorage = (event: StorageEvent): void => {
-        if (event.key === this.store.storageKey || event.key === null) this.reloadRecords();
-      };
-      view.addEventListener('storage', onStorage);
-      this.destroyRef.onDestroy(() => view.removeEventListener('storage', onStorage));
-    }
   }
 
   protected reloadRecords(): void {
-    try {
-      this.store.load();
-      this.loadError.set(false);
-    } catch {
-      this.loadError.set(true);
-    }
+    this.store.load().subscribe({
+      next: () => this.loadError.set(false),
+      error: () => this.loadError.set(true)
+    });
   }
 
   protected setScope(value: EmissionScope | 'ALL'): void {
@@ -65,7 +51,7 @@ export class EmissionsPage implements OnInit {
     this.dialog.open(EmissionFormDialog, {
       width: '760px',
       maxWidth: '95vw',
-      data: { facilities: this.store.facilities, save: (input: EmissionRecordInput) => this.store.create(input) }
+      data: { facilities: this.store.facilities(), save: (input: EmissionRecordInput) => this.store.create(input) }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
       if (input) this.notify('emissions.messages.created');
     });
@@ -75,7 +61,7 @@ export class EmissionsPage implements OnInit {
     this.dialog.open(EmissionFormDialog, {
       width: '760px',
       maxWidth: '95vw',
-      data: { record, facilities: this.store.facilities, save: (input: EmissionRecordInput) => this.store.update(record.activityData.id, input) }
+      data: { record, facilities: this.store.facilities(), save: (input: EmissionRecordInput) => this.store.update(record.activityData.id, input) }
     }).afterClosed().subscribe((input?: EmissionRecordInput) => {
       if (input) this.notify('emissions.messages.updated');
     });
@@ -88,29 +74,11 @@ export class EmissionsPage implements OnInit {
   protected confirmDelete(record: EmissionRecord): void {
     this.dialog.open(ConfirmDeleteDialog, { data: record.source.name, width: '440px', maxWidth: '95vw' })
       .afterClosed().subscribe((confirmed?: boolean) => {
-        if (confirmed) this.perform(() => this.store.delete(record.activityData.id), 'emissions.messages.deleted');
+        if (confirmed) this.store.delete(record.activityData.id).subscribe({
+          next: () => this.notify('emissions.messages.deleted'),
+          error: () => this.notify('emissions.messages.operationFailed')
+        });
       });
-  }
-
-  protected resetDemoData(): void {
-    this.dialog.open(ConfirmResetDialog, { width: '440px', maxWidth: '95vw' })
-      .afterClosed().subscribe((confirmed?: boolean) => {
-        if (confirmed) {
-          this.perform(() => {
-            this.store.resetDemoData();
-            this.loadError.set(false);
-          }, 'emissions.messages.reset');
-        }
-      });
-  }
-
-  private perform(action: () => void, successKey: string): void {
-    try {
-      action();
-      this.notify(successKey);
-    } catch {
-      this.notify('emissions.messages.operationFailed');
-    }
   }
 
   private notify(key: string): void {

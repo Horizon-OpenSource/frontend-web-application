@@ -76,7 +76,7 @@
     <p class="save-error" role="alert">{{ 'emissions.messages.operationFailed' | translate }}</p>
   }
   <mat-dialog-actions align="end">
-    <button mat-button type="button" (click)="cancel()">{{ 'emissions.actions.cancel' | translate }}</button>
-    <button mat-flat-button type="submit">{{ 'emissions.actions.save' | translate }}</button>
+    <button mat-button type="button" [disabled]="saving()" (click)="cancel()">{{ 'emissions.actions.cancel' | translate }}</button>
+    <button mat-flat-button type="submit" [disabled]="saving()">{{ 'emissions.actions.save' | translate }}</button>
   </mat-dialog-actions>
 </form>

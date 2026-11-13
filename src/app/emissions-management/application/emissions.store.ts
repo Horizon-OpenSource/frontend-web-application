@@ -1,13 +1,16 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { EmissionRecord, EmissionRecordInput } from '../domain/model/emission-record.model';
 import { EmissionScope } from '../domain/model/emission-scope';
-import { MockEmissionsRepository } from '../infrastructure/mock-emissions.repository';
+import { forkJoin, Observable, tap } from 'rxjs';
+import { EmissionsApiRepository } from '../infrastructure/emissions-api.repository';
+import { FacilityOption } from '../domain/model/emission-record.model';
 import { normalizeSearchText } from './search-text';
 
 @Injectable({ providedIn: 'root' })
 export class EmissionsStore {
-  private readonly repository = inject(MockEmissionsRepository);
+  private readonly repository = inject(EmissionsApiRepository);
   private readonly recordsSignal = signal<EmissionRecord[]>([]);
+  private readonly facilitiesSignal = signal<FacilityOption[]>([]);
   private readonly searchSignal = signal('');
   private readonly scopeSignal = signal<EmissionScope | 'ALL'>('ALL');
   private readonly periodSignal = signal('ALL');
@@ -18,8 +21,7 @@ export class EmissionsStore {
   readonly scope = this.scopeSignal.asReadonly();
   readonly period = this.periodSignal.asReadonly();
   readonly source = this.sourceSignal.asReadonly();
-  readonly facilities = this.repository.facilities;
-  readonly storageKey = this.repository.storageKey;
+  readonly facilities = this.facilitiesSignal.asReadonly();
 
   readonly periods = computed(() =>
     [...new Set(this.recordsSignal().map(record => record.activityData.period))].sort().reverse()
@@ -58,14 +60,19 @@ export class EmissionsStore {
   readonly scope2Count = computed(() => this.countByScope(EmissionScope.Scope2));
   readonly scope3Count = computed(() => this.countByScope(EmissionScope.Scope3));
 
-  load(): void {
-    this.recordsSignal.set(this.repository.getAll());
-    if (this.periodSignal() !== 'ALL' && !this.periods().includes(this.periodSignal())) {
-      this.periodSignal.set('ALL');
-    }
-    if (this.sourceSignal() !== 'ALL' && !this.sourceOptions().includes(this.sourceSignal())) {
-      this.sourceSignal.set('ALL');
-    }
+  load(): Observable<{ records: EmissionRecord[]; facilities: FacilityOption[] }> {
+    return forkJoin({ records: this.repository.getAll(), facilities: this.repository.getFacilities() }).pipe(
+      tap(({ records, facilities }) => {
+        this.recordsSignal.set(records);
+        this.facilitiesSignal.set(facilities);
+        this.clearUnavailableFilters();
+      })
+    );
+  }
+
+  private clearUnavailableFilters(): void {
+    if (this.periodSignal() !== 'ALL' && !this.periods().includes(this.periodSignal())) this.periodSignal.set('ALL');
+    if (this.sourceSignal() !== 'ALL' && !this.sourceOptions().includes(this.sourceSignal())) this.sourceSignal.set('ALL');
   }
 
   setSearch(value: string): void {
@@ -91,24 +98,25 @@ export class EmissionsStore {
     this.sourceSignal.set('ALL');
   }
 
-  create(input: EmissionRecordInput): void {
-    this.repository.create(input);
-    this.load();
+  create(input: EmissionRecordInput): Observable<EmissionRecord> {
+    return this.repository.create(input).pipe(tap(record => {
+      this.recordsSignal.update(records => [...records, record]);
+      this.clearUnavailableFilters();
+    }));
   }
 
-  update(activityDataId: string, input: EmissionRecordInput): void {
-    this.repository.update(activityDataId, input);
-    this.load();
+  update(activityDataId: string, input: EmissionRecordInput): Observable<EmissionRecord> {
+    return this.repository.update(activityDataId, input).pipe(tap(updated => {
+      this.recordsSignal.update(records => records.map(record => record.activityData.id === activityDataId ? updated : record));
+      this.clearUnavailableFilters();
+    }));
   }
 
-  delete(activityDataId: string): void {
-    this.repository.delete(activityDataId);
-    this.load();
-  }
-
-  resetDemoData(): void {
-    this.recordsSignal.set(this.repository.reset());
-    this.clearFilters();
+  delete(activityDataId: string): Observable<void> {
+    return this.repository.delete(activityDataId).pipe(tap(() => {
+      this.recordsSignal.update(records => records.filter(record => record.activityData.id !== activityDataId));
+      this.clearUnavailableFilters();
+    }));
   }
 
   private countByScope(scope: EmissionScope): number {

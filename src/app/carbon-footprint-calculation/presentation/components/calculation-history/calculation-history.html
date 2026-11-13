@@ -1,0 +1,37 @@
+@if (history().length) {
+  <div class="table-container">
+    <table mat-table [dataSource]="history()">
+      <ng-container matColumnDef="period">
+        <th mat-header-cell *matHeaderCellDef>{{ 'carbonFootprint.fields.period' | translate }}</th>
+        <td mat-cell *matCellDef="let entry">
+          <strong>{{ entry.period }}</strong>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="calculatedAt">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'carbonFootprint.fields.calculatedAt' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let entry">
+          {{ entry.calculatedAt | date: 'yyyy-MM-dd HH:mm' }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="records">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'carbonFootprint.fields.records' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let entry">{{ entry.records }}</td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>{{ 'carbonFootprint.fields.total' | translate }}</th>
+        <td mat-cell *matCellDef="let entry">{{ entry.total | number: '1.0-3' }} {{ unit }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+} @else {
+  <div class="empty-state">
+    <mat-icon aria-hidden="true">history</mat-icon>
+    <p>{{ 'carbonFootprint.history.empty' | translate }}</p>
+  </div>
+}

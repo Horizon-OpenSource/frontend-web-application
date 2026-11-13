@@ -1,0 +1,60 @@
+.register-page {
+  width: min(100%, 680px);
+  margin-inline: auto;
+  padding: 32px 16px;
+}
+
+.register-page header {
+  margin-bottom: 20px;
+}
+
+.register-page h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.register-page header p {
+  margin: 6px 0 0;
+}
+
+form {
+  display: grid;
+  gap: 24px;
+}
+
+.form-section {
+  display: grid;
+  gap: 16px;
+  padding-block: 8px;
+}
+
+.form-section h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 16px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.submit-button {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+}

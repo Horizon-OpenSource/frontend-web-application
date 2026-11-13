@@ -1,0 +1,28 @@
+<div class="results-grid">
+  <article class="result-card total">
+    <h3>{{ 'carbonFootprint.results.total' | translate }}</h3>
+    @if (total() !== null) {
+      <p class="value">
+        <strong>{{ total() | number: '1.0-3' }}</strong> <span>{{ unit }}</span>
+      </p>
+    } @else {
+      <p class="no-results">{{ 'carbonFootprint.results.noResults' | translate }}</p>
+    }
+  </article>
+
+  @for (result of scopes(); track result.scope) {
+    <article class="result-card" [attr.data-scope]="result.scope">
+      <h3>{{ 'carbonFootprint.scopes.' + result.scope | translate }}</h3>
+      @if (result.total !== null) {
+        <p class="value">
+          <strong>{{ result.total | number: '1.0-3' }}</strong> <span>{{ unit }}</span>
+        </p>
+        <p class="records">
+          {{ 'carbonFootprint.results.records' | translate: { count: result.records } }}
+        </p>
+      } @else {
+        <p class="no-results">{{ 'carbonFootprint.results.noScopeResults' | translate }}</p>
+      }
+    </article>
+  }
+</div>

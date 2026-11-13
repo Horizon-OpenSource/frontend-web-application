@@ -1,0 +1,216 @@
+<section class="edit-page">
+
+  <header class="page-header">
+    <h2>
+      {{ 'organization.edit.title' | translate }}
+    </h2>
+
+    <p>
+      {{ 'organization.edit.description' | translate }}
+    </p>
+  </header>
+
+  <mat-card appearance="outlined" class="form-card">
+
+    <mat-card-content>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="save()"
+        class="organization-form">
+
+        <!-- General information -->
+        <div class="form-section">
+
+          <div class="section-header">
+            <mat-icon>business</mat-icon>
+
+            <span>
+              {{ 'organization.edit.generalInformation' | translate }}
+            </span>
+          </div>
+
+          <div class="form-grid">
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.name' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="name"/>
+
+              @if (form.controls.name.hasError('required')) {
+                <mat-error>
+                  {{ 'organization.validation.required' | translate }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.industry' | translate }}
+              </mat-label>
+
+              <mat-select formControlName="industry">
+                @for (industry of industries; track industry) {
+                  <mat-option [value]="industry">
+                    {{ industry }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>
+                {{ 'organization.edit.addressLine1' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="addressLine1"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>
+                {{ 'organization.edit.addressLine2' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="addressLine2"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.city' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="city"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.state' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="stateProvince"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.postalCode' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="postalCode"/>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.country' | translate }}
+              </mat-label>
+
+              <mat-select formControlName="country">
+                @for (country of countries; track country) {
+                  <mat-option [value]="country">
+                    {{ country }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <mat-divider/>
+
+        <!-- Contact information -->
+        <div class="form-section">
+
+          <div class="section-header">
+            <mat-icon>contact_mail</mat-icon>
+
+            <span>
+              {{ 'organization.edit.contactInformation' | translate }}
+            </span>
+          </div>
+
+          <div class="form-grid">
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.email' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                type="email"
+                formControlName="contactEmail"/>
+
+              @if (form.controls.contactEmail.hasError('email')) {
+                <mat-error>
+                  {{ 'organization.validation.email' | translate }}
+                </mat-error>
+              }
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline">
+              <mat-label>
+                {{ 'organization.edit.phone' | translate }}
+              </mat-label>
+
+              <input
+                matInput
+                formControlName="phone"/>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button
+            mat-button
+            type="button"
+            (click)="cancel()">
+
+            {{ 'organization.actions.cancel' | translate }}
+
+          </button>
+
+          <button
+            mat-flat-button
+            type="submit">
+
+            <mat-icon>save</mat-icon>
+
+            {{ 'organization.actions.save' | translate }}
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</section>

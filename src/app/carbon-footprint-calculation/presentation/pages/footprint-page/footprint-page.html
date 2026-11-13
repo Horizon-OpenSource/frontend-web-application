@@ -1,0 +1,99 @@
+<section class="page-shell" aria-labelledby="footprint-title">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">{{ 'carbonFootprint.eyebrow' | translate }}</p>
+      <h1 id="footprint-title">{{ 'carbonFootprint.title' | translate }}</h1>
+      <p class="subtitle">{{ 'carbonFootprint.subtitle' | translate }}</p>
+    </div>
+    <div class="header-actions">
+      <button mat-button type="button" (click)="clearResults()">
+        <mat-icon aria-hidden="true">delete_sweep</mat-icon
+        >{{ 'carbonFootprint.actions.clearResults' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <section class="card" aria-labelledby="activity-title">
+    <div class="card-heading">
+      <div>
+        <h2 id="activity-title">{{ 'carbonFootprint.activity.title' | translate }}</h2>
+        <p>{{ 'carbonFootprint.activity.subtitle' | translate: { count: store.rows().length } }}</p>
+      </div>
+      <div class="period-actions">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="period-field">
+          <mat-label>{{ 'carbonFootprint.period.label' | translate }}</mat-label>
+          <mat-select [value]="store.period()" (selectionChange)="onPeriodChange($event.value)">
+            @for (period of store.periods(); track period) {
+              <mat-option [value]="period">{{ period }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <button mat-flat-button type="button" (click)="calculate()" [disabled]="!store.period()">
+          <mat-icon aria-hidden="true">calculate</mat-icon
+          >{{ 'carbonFootprint.actions.calculate' | translate }}
+        </button>
+      </div>
+    </div>
+
+    @if (store.pendingIssues().length) {
+      <div class="notice warning" role="alert">
+        <mat-icon aria-hidden="true">warning</mat-icon>
+        <div>
+          <h3>{{ 'carbonFootprint.incomplete.title' | translate }}</h3>
+          <p>{{ 'carbonFootprint.incomplete.message' | translate: { period: store.period() } }}</p>
+          <ul>
+            @for (issue of store.pendingIssues(); track $index) {
+              <li>
+                @if (issue.sourceName) {
+                  <strong>{{ issue.sourceName }}:</strong>
+                }
+                {{ 'carbonFootprint.pending.' + issue.reason | translate }}
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
+
+    @if (store.completedTotal() !== null) {
+      <div class="notice success" role="status">
+        <mat-icon aria-hidden="true">check_circle</mat-icon>
+        <p>
+          {{ 'carbonFootprint.completed.message' | translate: { period: store.period() } }}
+          <strong>{{ store.completedTotal() | number: '1.0-3' }} {{ unit }}</strong>
+        </p>
+      </div>
+    }
+
+    @if (store.rows().length) {
+      <app-activity-factors-table [rows]="store.rows()" (factorChange)="onFactorChange($event)" />
+    } @else {
+      <div class="empty-state">
+        <mat-icon aria-hidden="true">search_off</mat-icon>
+        <p>{{ 'carbonFootprint.activity.empty' | translate }}</p>
+      </div>
+    }
+  </section>
+
+  <section class="card" aria-labelledby="results-title">
+    <div class="card-heading">
+      <div>
+        <h2 id="results-title">
+          {{ 'carbonFootprint.results.title' | translate: { period: store.period() } }}
+        </h2>
+      </div>
+    </div>
+    <div class="card-body">
+      <app-scope-results [total]="store.periodTotal()" [scopes]="store.scopeResults()" />
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="history-title">
+    <div class="card-heading">
+      <div>
+        <h2 id="history-title">{{ 'carbonFootprint.history.title' | translate }}</h2>
+      </div>
+    </div>
+    <app-calculation-history [history]="store.history()" />
+  </section>
+</section>

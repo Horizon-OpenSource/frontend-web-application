@@ -8,7 +8,7 @@ import { routes } from './app.routes';
 import { AnalyticsRepository } from './analytics-reports/domain/repository/analytics.repository';
 import { AnalyticsBackendRepository } from './analytics-reports/infrastructure/analytics-backend.repository';
 import { OrganizationRepository } from './organization-management/domain/repository/organization.repository';
-import { OrganizationApi } from './organization-management/infrastructure/organization-api';
+import { OrganizationBackendRepository } from './organization-management/infrastructure/organization-backend.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     { provide: AnalyticsRepository, useClass: AnalyticsBackendRepository },
     {
       provide: OrganizationRepository,
-      useClass: OrganizationApi
+      useClass: OrganizationBackendRepository
     },
     provideRouter(routes),
     provideHttpClient(withXhr()),

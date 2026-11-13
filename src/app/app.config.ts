@@ -5,10 +5,13 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
+import { AnalyticsRepository } from './analytics-reports/domain/repository/analytics.repository';
+import { AnalyticsBackendRepository } from './analytics-reports/infrastructure/analytics-backend.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    { provide: AnalyticsRepository, useClass: AnalyticsBackendRepository },
     provideRouter(routes),
     provideHttpClient(withXhr()),
     provideTranslateService({

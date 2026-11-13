@@ -7,7 +7,7 @@ import {
 
 import { Observable, forkJoin, tap } from 'rxjs';
 
-import { OrganizationApi } from '../infrastructure/organization-api';
+import { OrganizationRepository } from '../domain/repository/organization.repository';
 
 import { Organization } from '../domain/model/organization.entity';
 import { OrganizationActivity } from '../domain/model/organization-activity.entity';
@@ -19,8 +19,7 @@ import { BusinessUnit } from '../domain/model/business-unit.entity';
 })
 export class OrganizationStore {
 
-  private readonly organizationApi = inject(OrganizationApi);
-
+  private readonly organizationRepository = inject(OrganizationRepository);
   private readonly organizationStorageKey =
     'ecotrack.currentOrganizationId';
 
@@ -59,16 +58,16 @@ export class OrganizationStore {
 
     forkJoin({
       organization:
-        this.organizationApi.getOrganization(organizationId),
+        this.organizationRepository.getOrganization(organizationId),
 
       sites:
-        this.organizationApi.getSites(organizationId),
+        this.organizationRepository.getSites(organizationId),
 
       businessUnits:
-        this.organizationApi.getBusinessUnits(organizationId),
+        this.organizationRepository.getBusinessUnits(organizationId),
 
       activities:
-        this.organizationApi.getActivities(organizationId)
+        this.organizationRepository.getActivities(organizationId)
     }).subscribe({
       next: data => {
 
@@ -101,7 +100,7 @@ export class OrganizationStore {
     changes: Partial<Organization>
   ): Observable<Organization> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .updateOrganization(
         this.currentOrganizationId(),
         changes
@@ -128,7 +127,7 @@ export class OrganizationStore {
     this.loading.set(true);
     this.error.set(false);
 
-    this.organizationApi
+    this.organizationRepository
       .getSites(organizationId)
       .subscribe({
         next: sites => {
@@ -147,7 +146,7 @@ export class OrganizationStore {
     site: Omit<Site, 'id'>
   ): Observable<Site> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .createSite(site)
       .pipe(
         tap(createdSite => {
@@ -174,7 +173,7 @@ export class OrganizationStore {
     this.loading.set(true);
     this.error.set(false);
 
-    this.organizationApi
+    this.organizationRepository
       .getBusinessUnits(organizationId)
       .subscribe({
         next: businessUnits => {
@@ -195,7 +194,7 @@ export class OrganizationStore {
     businessUnit: Omit<BusinessUnit, 'id'>
   ): Observable<BusinessUnit> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .createBusinessUnit(
         businessUnit
       )
@@ -221,7 +220,7 @@ export class OrganizationStore {
     organization: Omit<Organization, 'id'>
   ): Observable<Organization> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .createOrganization(organization)
       .pipe(
         tap(createdOrganization => {
@@ -274,7 +273,7 @@ export class OrganizationStore {
     changes: Partial<Site>
   ): Observable<Site> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .updateSite(id, changes)
       .pipe(
         tap(updatedSite => {
@@ -309,7 +308,7 @@ export class OrganizationStore {
             item.id === id
         );
 
-    return this.organizationApi
+    return this.organizationRepository
       .deleteSite(id)
       .pipe(
         tap(() => {
@@ -336,7 +335,7 @@ export class OrganizationStore {
     changes: Partial<BusinessUnit>
   ): Observable<BusinessUnit> {
 
-    return this.organizationApi
+    return this.organizationRepository
       .updateBusinessUnit(
         id,
         changes
@@ -374,7 +373,7 @@ export class OrganizationStore {
             unit.id === id
         );
 
-    return this.organizationApi
+    return this.organizationRepository
       .deleteBusinessUnit(id)
       .pipe(
         tap(() => {
@@ -400,7 +399,7 @@ export class OrganizationStore {
     description: string
   ): void {
 
-    this.organizationApi
+    this.organizationRepository
       .createActivity({
         organizationId:
           this.currentOrganizationId(),

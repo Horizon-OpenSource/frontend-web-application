@@ -7,11 +7,17 @@ import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { AnalyticsRepository } from './analytics-reports/domain/repository/analytics.repository';
 import { AnalyticsBackendRepository } from './analytics-reports/infrastructure/analytics-backend.repository';
+import { OrganizationRepository } from './organization-management/domain/repository/organization.repository';
+import { OrganizationBackendRepository } from './organization-management/infrastructure/organization-backend.repository';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     { provide: AnalyticsRepository, useClass: AnalyticsBackendRepository },
+    {
+      provide: OrganizationRepository,
+      useClass: OrganizationBackendRepository
+    },
     provideRouter(routes),
     provideHttpClient(withXhr()),
     provideTranslateService({

@@ -9,10 +9,12 @@ import { OrganizationActivity } from '../domain/model/organization-activity.enti
 import { Site } from '../domain/model/site.entity';
 import { BusinessUnit } from '../domain/model/business-unit.entity';
 
+import { OrganizationRepository } from '../domain/repository/organization.repository';
+
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationApi {
+export class OrganizationApi extends OrganizationRepository {
 
   private readonly http = inject(HttpClient);
 

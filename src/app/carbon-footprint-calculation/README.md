@@ -12,14 +12,14 @@ This Angular bounded context implements EP-04 for EcoTrack:
 
 - `domain`: activity data, emission factor and calculation models, the calculation and summary rules, and the `FootprintRepository` port.
 - `application`: signal-based `FootprintStore` with the feature use cases.
-- `infrastructure`: `MockFootprintRepository`, the in-memory implementation of the port.
+- `infrastructure`: `HttpFootprintRepository`, the implementation of the port that consumes the Mock API (`API_BASE_URL`).
 - `presentation`: routed page and its components (activity data and factors, results by scope, history).
 
 The bounded context does not depend on any other one. It keeps its own read model of the activity data, which in the integrated product is provided by Emissions Management.
 
 ## Demo data
 
-`MockFootprintRepository` covers every scenario of the user stories. Data is copied to browser `localStorage`, so factor selections and calculations remain after a refresh. Use **Reset demo data** to restore the original scenario and **Clear results** to see the empty states.
+Data comes from the Mock API: emission sources, activity data, emission factors, factor assignments and footprint calculations. Unit tests use `testing/in-memory-footprint.repository.ts`, an in-memory implementation of the same port, so they do not need the API.
 
 | Period | Situation | Stories |
 |---|---|---|
@@ -38,7 +38,7 @@ Emission factor values are illustrative and are not official factors.
 
 ## Replacing the mock
 
-`carbon-footprint.routes.ts` provides `FootprintRepository`. When the Spring Boot API is available, provide an HTTP implementation of that port instead of `MockFootprintRepository`. The domain, the store and the presentation layer do not change.
+`carbon-footprint.routes.ts` provides `FootprintRepository` with `HttpFootprintRepository`. When the Spring Boot API is available, only the base URL or the implementation of that port changes; the domain, the store and the presentation layer do not.
 
 ## Verification
 

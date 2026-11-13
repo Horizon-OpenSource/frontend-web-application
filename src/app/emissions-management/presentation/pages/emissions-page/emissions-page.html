@@ -6,13 +6,20 @@
       <p class="subtitle">{{ 'emissions.subtitle' | translate }}</p>
     </div>
     <div class="header-actions">
-      <button mat-flat-button type="button" (click)="openCreate()">
-        <mat-icon>add</mat-icon>{{ 'emissions.actions.add' | translate }}
+      <button mat-flat-button type="button" [disabled]="loadError()" (click)="openCreate()">
+        <mat-icon aria-hidden="true">add</mat-icon>{{ 'emissions.actions.add' | translate }}
       </button>
     </div>
   </header>
 
-  <div class="summary-grid" aria-label="Emission record summary">
+  @if (loadError()) {
+    <div class="load-error" role="alert">
+      <h2>{{ 'emissions.loadError.title' | translate }}</h2>
+      <p>{{ 'emissions.loadError.message' | translate }}</p>
+      <button mat-button type="button" (click)="reloadRecords()">{{ 'emissions.actions.retry' | translate }}</button>
+    </div>
+  } @else {
+  <div class="summary-grid" [attr.aria-label]="'emissions.summary.label' | translate">
     <article class="summary-card total"><span>{{ 'emissions.summary.total' | translate }}</span><strong>{{ store.totalRecords() }}</strong></article>
     <article class="summary-card scope-1"><span>{{ 'emissions.scopes.SCOPE_1' | translate }}</span><strong>{{ store.scope1Count() }}</strong></article>
     <article class="summary-card scope-2"><span>{{ 'emissions.scopes.SCOPE_2' | translate }}</span><strong>{{ store.scope2Count() }}</strong></article>
@@ -21,15 +28,15 @@
 
   <section class="records-card" aria-labelledby="records-title">
     <div class="records-heading">
-      <div><h2 id="records-title">{{ 'emissions.recordsTitle' | translate }}</h2><p>{{ 'emissions.results' | translate:{ count: store.filteredRecords().length } }}</p></div>
+      <div><h2 id="records-title">{{ 'emissions.recordsTitle' | translate }}</h2><p role="status" aria-live="polite">{{ 'emissions.results' | translate:{ count: store.filteredRecords().length } }}</p></div>
       <button mat-button type="button" (click)="store.clearFilters()">{{ 'emissions.actions.clearFilters' | translate }}</button>
     </div>
 
     <div class="filters" role="search">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>{{ 'emissions.filters.search' | translate }}</mat-label>
-        <mat-icon matPrefix>search</mat-icon>
-        <input matInput [value]="store.search()" (input)="store.setSearch($any($event.target).value)" />
+        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+        <input matInput #searchInput [value]="store.search()" (input)="store.setSearch(searchInput.value)" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -85,9 +92,9 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef><span class="visually-hidden">{{ 'emissions.fields.actions' | translate }}</span></th>
             <td mat-cell *matCellDef="let record" class="actions-cell">
-              <button mat-icon-button type="button" (click)="openDetail(record)" [matTooltip]="'emissions.actions.view' | translate" [attr.aria-label]="'emissions.actions.view' | translate"><mat-icon>visibility</mat-icon></button>
-              <button mat-icon-button type="button" (click)="openEdit(record)" [matTooltip]="'emissions.actions.edit' | translate" [attr.aria-label]="'emissions.actions.edit' | translate"><mat-icon>edit</mat-icon></button>
-              <button mat-icon-button type="button" class="danger" (click)="confirmDelete(record)" [matTooltip]="'emissions.actions.delete' | translate" [attr.aria-label]="'emissions.actions.delete' | translate"><mat-icon>delete</mat-icon></button>
+              <button mat-icon-button type="button" (click)="openDetail(record)" [matTooltip]="'emissions.actions.view' | translate" [attr.aria-label]="'emissions.actions.viewNamed' | translate:{ name: record.source.name }"><mat-icon aria-hidden="true">visibility</mat-icon></button>
+              <button mat-icon-button type="button" (click)="openEdit(record)" [matTooltip]="'emissions.actions.edit' | translate" [attr.aria-label]="'emissions.actions.editNamed' | translate:{ name: record.source.name }"><mat-icon aria-hidden="true">edit</mat-icon></button>
+              <button mat-icon-button type="button" class="danger" (click)="confirmDelete(record)" [matTooltip]="'emissions.actions.delete' | translate" [attr.aria-label]="'emissions.actions.deleteNamed' | translate:{ name: record.source.name }"><mat-icon aria-hidden="true">delete</mat-icon></button>
             </td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -95,7 +102,8 @@
         </table>
       </div>
     } @else {
-      <div class="empty-state"><mat-icon>search_off</mat-icon><h3>{{ 'emissions.empty.title' | translate }}</h3><p>{{ 'emissions.empty.message' | translate }}</p></div>
+      <div class="empty-state"><mat-icon aria-hidden="true">search_off</mat-icon><h3>{{ (store.totalRecords() ? 'emissions.empty.title' : 'emissions.empty.noRecordsTitle') | translate }}</h3><p>{{ (store.totalRecords() ? 'emissions.empty.message' : 'emissions.empty.noRecordsMessage') | translate }}</p></div>
     }
   </section>
+  }
 </section>

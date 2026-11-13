@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { FootprintStore } from '../../../application/footprint.store';
 import { FootprintRepository } from '../../../domain/repository/footprint.repository';
-import { MockFootprintRepository } from '../../../infrastructure/mock-footprint.repository';
+import { InMemoryFootprintRepository } from '../../../testing/in-memory-footprint.repository';
 import { FootprintPage } from './footprint-page';
 
 describe('FootprintPage', () => {
@@ -31,7 +31,7 @@ describe('FootprintPage', () => {
       providers: [
         provideTranslateService(),
         FootprintStore,
-        { provide: FootprintRepository, useClass: MockFootprintRepository },
+        { provide: FootprintRepository, useClass: InMemoryFootprintRepository },
       ],
     }).compileComponents();
 

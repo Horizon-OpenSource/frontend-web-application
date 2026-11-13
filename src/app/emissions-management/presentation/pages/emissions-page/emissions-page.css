@@ -35,3 +35,6 @@ td span { color: #78909c; font-size: 12px; margin-top: 3px; }
 .visually-hidden { clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
 @media (max-width: 1000px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .filters { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 700px) { .page-header { flex-direction: column; } .summary-grid, .filters { grid-template-columns: 1fr; } .header-actions { width: 100%; } }
+
+.load-error { background: #fff4f2; border: 1px solid #b3261e; border-radius: 12px; color: #641b16; padding: 20px 24px; }
+.load-error h2 { margin-top: 0; }

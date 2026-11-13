@@ -156,7 +156,8 @@
     "recordsTitle": "Datos de actividad registrados",
     "results": "{{count}} registros encontrados",
     "summary": {
-      "total": "Total de registros"
+      "total": "Total de registros",
+      "label": "Resumen de registros de emisiones"
     },
     "scopes": {
       "SCOPE_1": "Alcance 1",
@@ -197,11 +198,17 @@
       "edit": "Editar",
       "delete": "Eliminar",
       "clearFilters": "Limpiar filtros",
-      "resetDemo": "Restaurar datos demo"
+      "resetDemo": "Restaurar datos demo",
+      "retry": "Reintentar",
+      "viewNamed": "Ver detalle de {{name}}",
+      "editNamed": "Editar {{name}}",
+      "deleteNamed": "Eliminar {{name}}"
     },
     "form": {
       "createTitle": "Registrar fuente y dato de actividad",
-      "editTitle": "Editar registro de emisión"
+      "editTitle": "Editar registro de emisión",
+      "manualOrigin": "Los registros ingresados aquí tienen origen manual.",
+      "originRetained": "El origen original se conserva al editar."
     },
     "detail": {
       "title": "Detalle del registro de emisión"
@@ -213,18 +220,34 @@
     },
     "empty": {
       "title": "No se encontraron emisiones",
-      "message": "Cambia o limpia los filtros para ver más resultados."
+      "message": "Cambia o limpia los filtros para ver más resultados.",
+      "noRecordsTitle": "Aún no hay registros",
+      "noRecordsMessage": "Agrega un registro para iniciar tu inventario."
     },
     "validation": {
       "required": "Este campo es obligatorio.",
-      "positive": "Ingresa un valor mayor que cero."
+      "positive": "Ingresa un valor mayor que cero.",
+      "maxLength": "Ingresa hasta {{count}} caracteres.",
+      "facility": "Selecciona una sede válida.",
+      "scope": "Selecciona un alcance de emisión.",
+      "period": "Ingresa un mes y año válidos."
     },
     "messages": {
       "created": "Registro de emisión creado.",
       "updated": "Registro de emisión actualizado.",
       "deleted": "Registro de emisión eliminado.",
       "reset": "Datos de demostración restaurados.",
-      "operationError": "No se pudo completar la operación."
+      "operationError": "No se pudo completar la operación.",
+      "operationFailed": "No se pudo guardar el cambio. Inténtalo nuevamente."
+    },
+    "reset": {
+      "title": "¿Restaurar los datos demo?",
+      "message": "Se reemplazarán todos los registros de emisiones guardados en este navegador por los datos de demostración.",
+      "warning": "Esta acción no se puede deshacer."
+    },
+    "loadError": {
+      "message": "No se pudo conectar con la API de emisiones o leer sus datos. Comprueba que la API esté activa e inténtalo de nuevo.",
+      "title": "No se pudieron cargar los registros"
     }
   },
   "carbonFootprint": {
@@ -303,9 +326,18 @@
     }
   },
   "analytics": {
-    "units": { "tonnes": "t CO₂e" },
-    "scopes": { "scope1": "Alcance 1", "scope2": "Alcance 2", "scope3": "Alcance 3" },
-    "filters": { "period": "Periodo", "allPeriods": "Todos los periodos" },
+    "units": {
+      "tonnes": "t CO₂e"
+    },
+    "scopes": {
+      "scope1": "Alcance 1",
+      "scope2": "Alcance 2",
+      "scope3": "Alcance 3"
+    },
+    "filters": {
+      "period": "Periodo",
+      "allPeriods": "Todos los periodos"
+    },
     "dashboard": {
       "title": "Panel principal",
       "subtitle": "Resumen de la huella de carbono de {{organization}}",
@@ -332,14 +364,21 @@
       "empty": "Todavía no se han definido metas ambientales.",
       "progressLabel": "{{name}}: {{value}} % de avance",
       "meta": "{{progress}} % completado, vence el {{date}}",
-      "status": { "active": "Activa", "achieved": "Cumplida", "atRisk": "En riesgo" }
+      "status": {
+        "active": "Activa",
+        "achieved": "Cumplida",
+        "atRisk": "En riesgo"
+      }
     },
     "reports": {
       "title": "Reportes",
       "subtitle": "Genera, revisa y descarga los reportes ambientales de {{organization}}",
       "historyTitle": "Historial de reportes",
       "results": "{{count}} reportes encontrados",
-      "types": { "consolidated": "Reporte consolidado", "period": "Reporte por periodo" },
+      "types": {
+        "consolidated": "Reporte consolidado",
+        "period": "Reporte por periodo"
+      },
       "columns": {
         "report": "Reporte",
         "period": "Periodo",
@@ -348,7 +387,10 @@
         "status": "Estado",
         "actions": "Acciones"
       },
-      "status": { "available": "Disponible", "unavailable": "No disponible" },
+      "status": {
+        "available": "Disponible",
+        "unavailable": "No disponible"
+      },
       "actions": {
         "generate": "Generar reporte",
         "download": "Descargar CSV",

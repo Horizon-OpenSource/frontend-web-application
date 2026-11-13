@@ -1,3 +1,6 @@
+import { defer, of } from 'rxjs';
+import { EmissionsApiRepository } from '../infrastructure/emissions-api.repository';
+import { MockEmissionsRepository } from '../infrastructure/mock-emissions.repository';
 import { TestBed } from '@angular/core/testing';
 import { EmissionsStore } from './emissions.store';
 import { EmissionScope } from '../domain/model/emission-scope';
@@ -8,9 +11,18 @@ describe('EmissionsStore', () => {
 
   beforeEach(() => {
     localStorage.clear();
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ providers: [{ provide: EmissionsApiRepository, useFactory: () => {
+      const mock = TestBed.inject(MockEmissionsRepository);
+      return {
+        getAll: () => defer(() => of(mock.getAll())),
+        getFacilities: () => of(mock.facilities),
+        create: (input: EmissionRecordInput) => defer(() => of(mock.create(input))),
+        update: (id: string, input: EmissionRecordInput) => defer(() => of(mock.update(id, input))),
+        delete: (id: string) => defer(() => { mock.delete(id); return of(void 0); })
+      };
+    }}] });
     store = TestBed.inject(EmissionsStore);
-    store.load();
+    store.load().subscribe();
   });
 
   it('loads the demonstration records grouped across all scopes', () => {
@@ -43,14 +55,14 @@ describe('EmissionsStore', () => {
       origin: 'MANUAL'
     };
 
-    store.create(input);
+    store.create(input).subscribe();
     const created = store.records().at(-1)!;
     expect(store.totalRecords()).toBe(7);
 
-    store.update(created.activityData.id, { ...input, quantity: 450 });
+    store.update(created.activityData.id, { ...input, quantity: 450 }).subscribe();
     expect(store.records().at(-1)?.activityData.quantity).toBe(450);
 
-    store.delete(created.activityData.id);
+    store.delete(created.activityData.id).subscribe();
     expect(store.totalRecords()).toBe(6);
   });
 });

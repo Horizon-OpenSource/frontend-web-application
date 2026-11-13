@@ -38,6 +38,10 @@ import {
   ReportingPeriod
 } from '../domain/model/reporting-period.entity';
 
+import {
+  AnalyticsRepository
+} from '../domain/repository/analytics.repository';
+
 
 interface OrganizationDto {
   id: number;
@@ -92,7 +96,8 @@ interface ReportDto {
 @Injectable({
   providedIn: 'root'
 })
-export class AnalyticsApiRepository {
+export class AnalyticsApiRepository
+  extends AnalyticsRepository {
 
   private readonly http =
     inject(HttpClient);

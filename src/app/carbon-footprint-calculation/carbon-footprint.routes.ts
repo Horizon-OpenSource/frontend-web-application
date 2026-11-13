@@ -5,7 +5,7 @@ import { HttpFootprintRepository } from './infrastructure/http-footprint.reposit
 
 /**
  * Routes of the Carbon Footprint Calculation bounded context.
- * To use the real API, replace `MockFootprintRepository` with an HTTP implementation of
+ * To use the real API, replace `HttpFootprintRepository` with another implementation of
  * `FootprintRepository`; no other file of the bounded context needs to change.
  */
 export const CARBON_FOOTPRINT_ROUTES: Routes = [
